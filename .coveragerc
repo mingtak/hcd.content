@@ -1,0 +1,6 @@
+[report]
+include =
+    src/hcd/*
+omit =
+    */test*
+    */upgrades/*

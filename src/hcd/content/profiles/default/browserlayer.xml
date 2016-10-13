@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layers>
+  <layer
+      name="hcd.content"
+      interface="hcd.content.interfaces.IHcdContentLayer"
+      />
+</layers>
