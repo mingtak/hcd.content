@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<model i18n:domain="hcd.content"
+ xmlns="http://namespaces.plone.org/supermodel/schema"
+ xmlns:form="http://namespaces.plone.org/supermodel/form"
+ xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+<schema>
+
+ <field name="id"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Id</title>
+  <required>False</required>
+ </field>
+ <field name="title"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Title</title>
+  <required>False</required>
+ </field>
+ <field name="description"
+  type="zope.schema.Text">
+  <title i18n:translate="">Description</title>
+  <required>False</required>
+ </field>
+ <field name="clrl"
+  type="zope.schema.Text">
+  <title i18n:translate="">Lunar Calendar</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrs"
+  type="zope.schema.Text">
+  <title i18n:translate="">Solar Calendar</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="lctp"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Location Past</title>
+  <required>False</required>
+ </field>
+ <field name="lctn"
+  type="zope.schema.Text">
+  <title i18n:translate="">Location Now</title>
+  <required>False</required>
+ </field>
+ <field name="lcth"
+  type="zope.schema.Float">
+  <title i18n:translate="">Location Height</title>
+  <required>False</required>
+ </field>
+ <field name="event"
+  type="zope.schema.Text">
+  <title i18n:translate="">Event Code</title>
+  <required>False</required>
+ </field>
+ <field name="source"
+  type="zope.schema.Text">
+  <title i18n:translate="">Text Source</title>
+  <required>False</required>
+ </field>
+
+</schema>
+
+</model>
