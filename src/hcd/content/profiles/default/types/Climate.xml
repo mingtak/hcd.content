@@ -28,7 +28,7 @@
   <property name="klass">hcd.content.content.Climate</property>
   <property name="model_file">hcd.content.models:climate.xml</property>
   <property name="model_source"></property>
-  <property name="schema"></property>
+  <property name="schema">hcd.content.interfaces.IClimate</property>
 
   <!-- Enabled behaviors -->
   <property name="behaviors">
