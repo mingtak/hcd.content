@@ -88,3 +88,5 @@ class ImportCSV(BrowserView):
                 content.source.append(item.get('文獻名稱'))
                 content.source.append(item.get('冊'))
                 content.source.append(item.get('頁碼'))
+
+                content.reindexObject()

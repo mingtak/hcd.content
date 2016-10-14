@@ -33,4 +33,5 @@
       factory=".setuphandlers.HiddenProfiles"
       name="hcd.content-hiddenprofiles" />
 
+  <adapter name="event" factory=".catalog.event_indexer" />
 </configure>
