@@ -24,4 +24,14 @@
       permission="cmf.ManagePortal"
       />
 
+
+  <!-- configlet -->
+  <browser:page
+    name="siteSettingControlPanel"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    permission="cmf.ManagePortal"
+    class=".siteSetting.SiteSettingControlPanelView"
+  />
+
+
 </configure>

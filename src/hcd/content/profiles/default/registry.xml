@@ -1,0 +1,3 @@
+<registry>
+  <records interface="hcd.content.browser.siteSetting.ISiteSetting" />
+</registry>
