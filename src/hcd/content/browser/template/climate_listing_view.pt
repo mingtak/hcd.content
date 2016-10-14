@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="hcd.content">
+<body>
+
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+
+
+<h1>Climate listing view</h1>
+
+<div tal:define="events view/getEventList" class="row">
+  <p class="col-sm-3 col-xs-4"> 
+    <input type="checkbox" name="click_all" id="click_all" value="all" />
+    <span>全選</span>
+  </p>
+
+  <p tal:repeat="event events" class="col-sm-3 col-xs-4">
+    <input type="checkbox" name="event" class="event" tal:attributes="value python:event.split(':')[0]"/>
+    <span tal:content="event" />
+  </p>
+</div>
+
+<div class="result">Result</div>
+
+
+<script>
+
+// select all , cancle
+$("#click_all").click(function() {
+   if($("#click_all").prop("checked")) {
+     $("input[name='event']").prop("checked", true);
+   } else {
+     $("input[name='event']").prop("checked", false);
+   }
+});
+
+
+// when checkbox checked.
+$(':checkbox').change(function() {
+    var event = $("input.event:checked");
+    var para = '';
+    for(var i=0; i<event.length; i++) {
+        para += "para:list=" + event[i].value + "&";
+    };
+    console.log(para);
+    $("div.result").load("./@@get_climate?" + para);
+});
+
+
+</script>
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+

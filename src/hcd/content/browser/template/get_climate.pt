@@ -1,0 +1,3 @@
+<ul tal:define="brain view/brain">
+<li tal:repeat="item brain" tal:content="item/Title">
+</ul>

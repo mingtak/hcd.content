@@ -24,6 +24,19 @@
       permission="cmf.ManagePortal"
       />
 
+  <browser:page
+      name="climate_listing_view"
+      for="plone.app.contenttypes.interfaces.IFolder"
+      class=".views.ClimateListingView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="get_climate"
+      for="*"
+      class=".views.GetClimate"
+      permission="zope2.View"
+      />
 
   <!-- configlet -->
   <browser:page
