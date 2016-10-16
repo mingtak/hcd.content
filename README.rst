@@ -50,6 +50,14 @@ Install hcd.content by adding it to your buildout::
 
 and then running ``bin/buildout``
 
+Very likely collective.geo is also needed to take care of coordinate data::
+
+    eggs =
+        ...
+        collective.geo.bundle
+
+After enabling collective.geo (Plone Maps) add-on, then enable the behaviors for the content types.
+
 
 Contribute
 ----------
