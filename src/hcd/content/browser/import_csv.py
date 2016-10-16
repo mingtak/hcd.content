@@ -9,7 +9,7 @@ from plone.protect.interfaces import IDisableCSRFProtection
 from zope.interface import alsoProvides
 import csv
 import logging
-import transaction
+from collective.geo.geographer.interfaces import IWriteGeoreferenced
 
 
 logger = logging.getLogger("ImportCSV")
@@ -88,5 +88,11 @@ class ImportCSV(BrowserView):
                 content.source.append(item.get('文獻名稱'))
                 content.source.append(item.get('冊'))
                 content.source.append(item.get('頁碼'))
+
+                # coordinates for collective.geo
+                longitude = item.get('空間-經度')
+                latitude = item.get('空間-緯度')
+                geo = IWriteGeoreferenced(content)
+                geo.setGeoInterface('Point', (float(longitude), float(latitude)))
 
                 content.reindexObject()
