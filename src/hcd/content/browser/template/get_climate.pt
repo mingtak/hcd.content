@@ -1,3 +1,5 @@
 <ul tal:define="brain view/brain">
-<li tal:repeat="item brain" tal:content="item/Title">
+    <li tal:repeat="item brain">
+        <a tal:attributes="href item/getURL" tal:content="item/Title" target="_blank"/>
+    </li>
 </ul>

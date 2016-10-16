@@ -16,18 +16,48 @@
 <h1>Climate listing view</h1>
 
 <div tal:define="events view/getEventList" class="row">
-  <p class="col-sm-3 col-xs-4"> 
+<div class="col-sm-4">
+  <p class="col-sm-12"> 
     <input type="checkbox" name="click_all" id="click_all" value="all" />
-    <span>全選</span>
+    <span>全選/全不選</span>
   </p>
 
-  <p tal:repeat="event events" class="col-sm-3 col-xs-4">
-    <input type="checkbox" name="event" class="event" tal:attributes="value python:event.split(':')[0]"/>
-    <span tal:content="event" />
+  <p class="col-sm-6 col-xs-4">
+    <input type="checkbox" name="click_group_1" id="click_group_1" value="click_group_1" class='click_group'/>
+    <span>氣象</span>
+  </p>
+  <p class="col-sm-6 col-xs-4">
+    <input type="checkbox" name="click_group_2" id="click_group_2" value="click_group_2" class='click_group'/>
+    <span>災害</span>
+  </p>
+  <p class="col-sm-6 col-xs-4">
+    <input type="checkbox" name="click_group_3" id="click_group_3" value="click_group_3" class='click_group'/>
+    <span>特殊現象</span>
+  </p>
+  <p class="col-sm-6 col-xs-4">
+    <input type="checkbox" name="click_group_4" id="click_group_4" value="click_group_4" class='click_group'/>
+    <span>其他</span>
+  </p>
+
+<div style="padding-top:150px">
+  <p tal:repeat="event events" class="col-sm-6 col-xs-4">
+    <input type="checkbox" name="event"
+           tal:define="value python:event.split(':')[0];
+                       group python:'group_1' if int(value) < 30 else 'group_2' if int(value) < 50 else 'group_3' if int(value) < 95 else 'group_4'"
+           tal:attributes="value value;
+                           class python:'event %s' % group"/>
+    <span tal:content="python:event.split(':')[1]" />
   </p>
 </div>
+</div>
 
-<div class="result">Result</div>
+<div class="col-sm-8">
+    <div class="result">Result</div>
+</div>
+
+
+</div>
+
 
 
 <script>
@@ -36,11 +66,23 @@
 $("#click_all").click(function() {
    if($("#click_all").prop("checked")) {
      $("input[name='event']").prop("checked", true);
+     $("input[class='click_group']").prop("checked", true);
    } else {
      $("input[name='event']").prop("checked", false);
+     $("input[class='click_group']").prop("checked", false);
    }
 });
 
+// select group_1 and cancle
+$(".click_group").click(function() {
+   var tag_id = this.id;
+   if($("#" + tag_id).prop("checked")) {
+     $("input[class='event group_" + tag_id.substr(-1) + "']").prop("checked", true);
+   } else {
+     $("input[class='event group_" + tag_id.substr(-1) + "']").prop("checked", false);
+     $("input[name='click_all']").prop("checked", false);
+   }
+});
 
 // when checkbox checked.
 $(':checkbox').change(function() {
