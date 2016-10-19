@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="hcd.content">
+
+<metal:styleslot fill-slot="style_slot">
+<link rel="stylesheet" href="++resource++hcd.content/ol.css" type="text/css" />
+<link rel="stylesheet" href="++resource++hcd.content/samples.css" type="text/css" />
+</metal:styleslot>
+
+<body>
+
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core">
+
+
+<h2 i18n:translate="">Map View</h2>
+
+    <div id="map" class="map"></div>
+    <script src="++resource++hcd.content/ol.js"></script>
+    <script>
+        // Declare a Tile layer with an OSM source
+        var osmLayer = new ol.layer.Tile({
+          source: new ol.source.OSM()
+        });
+        // Create latitude and longitude and convert them to default projection
+        var birmingham = ol.proj.transform([-1.81185, 52.44314], 'EPSG:4326', 'EPSG:3857');
+        // Create a View, set it center and zoom level
+        var view = new ol.View({
+          center: birmingham,
+          zoom: 6
+        });
+        // Instanciate a Map, set the object target to the map DOM id
+        var map = new ol.Map({
+          target: 'map'
+        });
+        // Add the created layer to the Map
+        map.addLayer(osmLayer);
+        // Set the view for the map
+        map.setView(view);
+    </script>
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+

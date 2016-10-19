@@ -38,6 +38,13 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="map-view"
+      for="*"
+      class=".views.MapView"
+      permission="zope2.View"
+      />
+
   <!-- configlet -->
   <browser:page
     name="siteSettingControlPanel"

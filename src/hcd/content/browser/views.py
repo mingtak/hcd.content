@@ -30,3 +30,11 @@ class ClimateListingView(BrowserView):
 
     def getEventList(self):
         return api.portal.get_registry_record('hcd.content.browser.siteSetting.ISiteSetting.event')
+
+
+class MapView(BrowserView):
+
+    template = ViewPageTemplateFile("template/map-view.pt")
+
+    def __call__(self):
+        return self.template()
