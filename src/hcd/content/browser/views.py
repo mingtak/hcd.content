@@ -25,6 +25,10 @@ class ClimateListingView(BrowserView):
     template = ViewPageTemplateFile("template/climate_listing_view.pt")
 
     def __call__(self):
+        if self.request.form.get('category-edit'):
+            self.events = self.request.form.get('category-edit').split('\n')
+        else:
+            self.events = self.getEventList()
         return self.template()
 
 
