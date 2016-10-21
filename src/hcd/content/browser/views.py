@@ -11,12 +11,18 @@ class GetClimate(BrowserView):
     def __call__(self):
         context = self.context
         request = self.request
+        catalog = context.portal_catalog
 
         para = request.get('para')
-        if not para:
-            return '<div></div>'
+        yearRange = request.form.get('yearRange')
+        yearStart = int(yearRange.split(',')[0])
+        yearEnd = int(yearRange.split(',')[1])
+        yearRange = [yearStart, yearEnd]
 
-        self.brain = api.content.find(Type='Climate', event=para)
+        if not para or not yearRange:
+            return '<div>No Result</div>'
+
+        self.brain = catalog({'Type':'Climate', 'event':para, 'clrsYear':{'query':yearRange, 'range':'min:max'}})
         return self.template()
 
 

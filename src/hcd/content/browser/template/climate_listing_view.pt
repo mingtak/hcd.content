@@ -55,6 +55,8 @@ portal = api.portal.get()
   </p>
 </tal:group>
 
+<hr>
+
 <div style="padding-top:150px">
   <tal:group repeat="group events">
     <p tal:repeat="event python:group.split('|')[1].split(',')" class="col-sm-6 col-xs-4">
@@ -104,15 +106,23 @@ $(".click_group").click(function() {
    }
 });
 
-// when checkbox checked.
-$(':checkbox').change(function() {
+// ajax for getClimate
+var getClimate = function(){
     var event = $("input.event:checked");
     var para = '';
+    var yearRange = $('#year-selector')[0]['value'];
     for(var i=0; i<event.length; i++) {
         para += "para:list=" + event[i].value + "&";
     };
-    console.log(para);
+    para += 'yearRange=' + yearRange
+//    console.log(para);
+//    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para);
+};
+
+// when checkbox checked.
+$(':checkbox').change(function() {
+    getClimate();
 });
 
 // Range bar using jquery.range.js
@@ -126,9 +136,10 @@ $('#year-selector').jRange({
     showLabels: true,
     isRange : true,
     ondragend: function(){
-        console.log($('#year-selector')[0]['value']);
+        getClimate();
     },
     onbarclicked: function(){
+        getClimate();
     },
 });
 
