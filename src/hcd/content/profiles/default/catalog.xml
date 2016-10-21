@@ -6,4 +6,9 @@
   </index>
   <column value="event"/>
 
+  <index name="clrsYear" meta_type="FieldIndex">
+    <indexed_attr value="clrsYear" />
+  </index>
+  <column value="clrsYear"/>
+
 </object>

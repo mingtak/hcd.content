@@ -34,4 +34,5 @@
       name="hcd.content-hiddenprofiles" />
 
   <adapter name="event" factory=".catalog.event_indexer" />
+  <adapter name="clrsYear" factory=".catalog.clrsYear_indexer" />
 </configure>

@@ -7,6 +7,11 @@ from hcd.content.interfaces import IClimate
 
 
 @indexer(IClimate)
+def clrsYear_indexer(obj):
+    return obj.clrs[0]
+
+
+@indexer(IClimate)
 def event_indexer(obj):
     event = getattr(obj, 'event')
 
