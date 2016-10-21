@@ -1,0 +1,5 @@
+<?python
+from plone import api
+portal = api.portal.get()
+?>
+<link rel="stylesheet" tal:attributes="href string:${portal/absolute_url}/++resource++hcd.content/jquery.range.css">

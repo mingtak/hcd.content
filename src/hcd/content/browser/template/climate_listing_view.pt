@@ -12,6 +12,10 @@
 <metal:content-core define-macro="content-core"
                     tal:define="toc context/table_of_contents|nothing;">
 
+<?python
+from plone import api
+portal = api.portal.get()
+?>
 
 <h1>Climate listing view</h1>
 
@@ -33,6 +37,10 @@
 
 <div class="row">
 <div class="col-sm-4">
+  <p class="col-sm-12" style="margin:20px 0 50px 0">
+    <input type="hidden" id="year-selector" value="1700" /> 
+  </p>
+
   <p class="col-sm-12"> 
     <input type="checkbox" name="click_all" id="click_all" value="all" />
     <span>全選/全不選</span>
@@ -48,19 +56,19 @@
 </tal:group>
 
 <div style="padding-top:150px">
-<tal:group repeat="group events">
-
-  <p tal:repeat="event python:group.split('|')[1].split(',')" class="col-sm-6 col-xs-4">
-    <input type="checkbox" name="event"
-           tal:define="value python:event.strip().split(':')[0];
-                       group python:group.split('|')[0].split(':')[0].strip()"
-           tal:attributes="value value;
-                           class python:'event %s' % group"/>
-    <span tal:content="python:event.strip().split(':')[1]" />
-  </p>
-
-</tal:group>
+  <tal:group repeat="group events">
+    <p tal:repeat="event python:group.split('|')[1].split(',')" class="col-sm-6 col-xs-4">
+      <input type="checkbox" name="event"
+             tal:define="value python:event.strip().split(':')[0];
+                         group python:group.split('|')[0].split(':')[0].strip()"
+             tal:attributes="value value;
+                             class python:'event %s' % group"/>
+      <span tal:content="python:event.strip().split(':')[1]" />
+    </p>
+  </tal:group>
 </div>
+
+
 </div>
 
 <div class="col-sm-8">
@@ -71,6 +79,7 @@
 </section>
 
 
+<script tal:attributes="src string:${portal/absolute_url}/++resource++hcd.content/jquery.range.js"></script>
 <script>
 
 // select all , cancle
@@ -106,6 +115,22 @@ $(':checkbox').change(function() {
     $("div.result").load("./@@get_climate?" + para);
 });
 
+// Range bar using jquery.range.js
+$('#year-selector').jRange({
+    from: 1,
+    to: 2000,
+    step: 1,
+    scale: [0,500,1000,1500,2000],
+    format: '%s',
+    width: 300,
+    showLabels: true,
+    isRange : true,
+    ondragend: function(){
+        console.log($('#year-selector')[0]['value']);
+    },
+    onbarclicked: function(){
+    },
+});
 
 </script>
 

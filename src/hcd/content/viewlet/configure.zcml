@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="hcd.content">
+
+    <browser:viewlet
+      name="add_to_head"
+      for="*"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      template="template/add_to_head.pt"
+      class=".viewlet.AddToHead"
+      permission="zope2.View"
+    />
+
+</configure>
