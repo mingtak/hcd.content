@@ -15,7 +15,23 @@
 
 <h1>Climate listing view</h1>
 
-<div tal:define="events view/getEventList" class="row">
+<section tal:define="events view/getEventList">
+
+<div class="row">
+    <div class="com-md-12">
+        <h3>事件分類編輯</h3>
+        <form tal:attributes="action context/absolute_url" method="get">
+        <textarea id="category-edit" name="category-edit" class="textarea-widget list-field"><tal:text repeat="item events" content="python:'%s\n' % item if not repeat['item'].end else item" /></textarea>
+        <p></p>
+        <input id="category-submit" name="category-submit" class="context" value="save" type="submit">
+        <a tal:attributes="href context/absolute_url" class="standalone">Default Category</a>
+        </form>
+    </div>
+</div>
+
+<hr>
+
+<div class="row">
 <div class="col-sm-4">
   <p class="col-sm-12"> 
     <input type="checkbox" name="click_all" id="click_all" value="all" />
@@ -55,9 +71,8 @@
     <div class="result">Result</div>
 </div>
 
-
 </div>
-
+</section>
 
 
 <script>
