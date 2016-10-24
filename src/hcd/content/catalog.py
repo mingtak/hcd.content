@@ -8,7 +8,8 @@ from hcd.content.interfaces import IClimate
 
 @indexer(IClimate)
 def clrsYear_indexer(obj):
-    return int(obj.clrs[0])
+    if obj.clrs:
+        return int(obj.clrs[0])
 
 
 @indexer(IClimate)
