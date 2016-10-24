@@ -43,8 +43,13 @@ class GetClimate(BrowserView):
 
         output = StringIO()
         writer = csv.writer(output)
+        writer.writerow(['Title', 'Description', 'Event code', 'Source'])
         for item in self.brain:
-            writer.writerow([item.Title, item.Description, item.event])
+            itemObj = item.getObject()
+            writer.writerow([itemObj.title.encode('utf-8'),
+                             itemObj.description.encode('utf-8'),
+                             itemObj.event.encode('utf-8'),
+                             ', '.join(itemObj.source).encode('utf-8')])
 
         results = output.getvalue()
         output.close()
