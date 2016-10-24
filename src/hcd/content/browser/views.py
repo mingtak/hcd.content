@@ -2,6 +2,8 @@
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
+from cStringIO import StringIO
+import csv
 
 
 class GetClimate(BrowserView):
@@ -11,19 +13,42 @@ class GetClimate(BrowserView):
     def __call__(self):
         context = self.context
         request = self.request
-        catalog = context.portal_catalog
+#        catalog = context.portal_catalog
 
-        para = request.get('para')
-        yearRange = request.form.get('yearRange')
-        yearStart = int(yearRange.split(',')[0])
-        yearEnd = int(yearRange.split(',')[1])
-        yearRange = [yearStart, yearEnd]
+        self.para = request.get('para')
+        self.yearRange = request.form.get('yearRange')
+        self.yearStart = int(self.yearRange.split(',')[0])
+        self.yearEnd = int(self.yearRange.split(',')[1])
+        self.yearRange = [self.yearStart, self.yearEnd]
 
-        if not para or not yearRange:
+        if not self.para or not self.yearRange:
             return '<div>No Result</div>'
 
-        self.brain = catalog({'Type':'Climate', 'event':para, 'clrsYear':{'query':yearRange, 'range':'min:max'}})
+        self.brain = self.getBrain()
+
+        if request.form.get('download'):
+            return self.downloadFile()
+            
         return self.template()
+
+
+    def getBrain(self):
+        catalog = self.context.portal_catalog
+        return catalog({'Type':'Climate', 'event':self.para, 'clrsYear':{'query':self.yearRange, 'range':'min:max'}})
+
+
+    def downloadFile(self):
+        self.request.response.setHeader('Content-Type', 'application/csv')
+        self.request.response.setHeader('Content-Disposition', 'attachment; filename="results.csv"')
+
+        output = StringIO()
+        writer = csv.writer(output)
+        for item in self.brain:
+            writer.writerow([item.Title, item.Description, item.event])
+
+        results = output.getvalue()
+        output.close()
+        return results
 
 
 class ClimateListingView(BrowserView):

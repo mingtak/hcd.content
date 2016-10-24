@@ -3,3 +3,6 @@
         <a tal:attributes="href item/getURL" tal:content="item/Title" target="_blank"/>
     </li>
 </ul>
+<p>
+  <a tal:attributes="href python:'%s?%s&download=1' % (view.request.getURL(), view.request.get('QUERY_STRING'))">Download Results</a>
+</p>
