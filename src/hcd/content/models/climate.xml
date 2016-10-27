@@ -21,15 +21,123 @@
   <title i18n:translate="">Description</title>
   <required>False</required>
  </field>
- <field name="clrl"
-  type="zope.schema.Text">
-  <title i18n:translate="">Lunar Calendar</title>
+ <field name="clrlby"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: Begin Year</title>
   <description />
   <required>False</required>
  </field>
- <field name="clrs"
-  type="zope.schema.Text">
-  <title i18n:translate="">Solar Calendar</title>
+ <field name="clrlbs"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: Begin Season</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrlbm"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: Begin Month</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrlbd"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: Begin Date</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrlbt"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: Begin Time</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrley"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: End Year</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrles"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: End Season</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrlem"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: End Month</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrled"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: End Date</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrlet"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Lunar Calendar: End Time</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsby"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL Begin Year</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsbs"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL Begin Season</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsbm"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL Begin Month</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsbd"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL Begin Date</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsbt"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL Begin Time</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsey"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL End Year</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrses"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL End Season</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsem"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL End Month</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrsed"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL End Date</title>
+  <description />
+  <required>False</required>
+ </field>
+ <field name="clrset"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Solar CalendarL End Time</title>
   <description />
   <required>False</required>
  </field>
@@ -43,19 +151,39 @@
   <title i18n:translate="">Location Now</title>
   <required>False</required>
  </field>
+ <field name="lcte"
+  type="zope.schema.Float">
+  <title i18n:translate="">Location Lon</title>
+  <required>False</required>
+ </field>
+ <field name="lctn"
+  type="zope.schema.Float">
+  <title i18n:translate="">Location Lat</title>
+  <required>False</required>
+ </field>
  <field name="lcth"
   type="zope.schema.Float">
   <title i18n:translate="">Location Height</title>
   <required>False</required>
  </field>
- <field name="event"
+ <field name="hpng"
   type="zope.schema.Text">
-  <title i18n:translate="">Event Code</title>
+  <title i18n:translate="">Event List</title>
   <required>False</required>
  </field>
- <field name="source"
-  type="zope.schema.Text">
+ <field name="tsrc"
+  type="zope.schema.TextLine">
   <title i18n:translate="">Text Source</title>
+  <required>False</required>
+ </field>
+ <field name="novl"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Volume No.</title>
+  <required>False</required>
+ </field>
+ <field name="nopg"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Page No.</title>
   <required>False</required>
  </field>
 

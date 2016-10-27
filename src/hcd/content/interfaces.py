@@ -24,15 +24,103 @@ class IClimate(Interface):
         required=False,
     )
 
-    clrl = schema.List(
-        title=_(u"Lunar Calendar"),
-        value_type = schema.TextLine(),
+    clrlby = schema.TextLine(
+        title=_(u"Lunar Calendar: Begin Year"),
         required=False,
     )
 
-    clrs = schema.List(
-        title=_(u"Solar Calendar"),
-        value_type = schema.TextLine(),
+    clrlbs = schema.TextLine(
+        title=_(u"Lunar Calendar: Begin Season"),
+        required=False,
+    )
+
+    clrlbm = schema.TextLine(
+        title=_(u"Lunar Calendar: Begin Month"),
+        required=False,
+    )
+
+    clrlbd = schema.TextLine(
+        title=_(u"Lunar Calendar: Begin Date"),
+        required=False,
+    )
+
+    clrlbt = schema.TextLine(
+        title=_(u"Lunar Calendar: Begin Time"),
+        required=False,
+    )
+
+    clrley = schema.TextLine(
+        title=_(u"Lunar Calendar: End Year"),
+        required=False,
+    )
+
+    clrles = schema.TextLine(
+        title=_(u"Lunar Calendar: End Season"),
+        required=False,
+    )
+
+    clrlem = schema.TextLine(
+        title=_(u"Lunar Calendar: End Month"),
+        required=False,
+    )
+
+    clrled = schema.TextLine(
+        title=_(u"Lunar Calendar: End Date"),
+        required=False,
+    )
+
+    clrlet = schema.TextLine(
+        title=_(u"Lunar Calendar: End Time"),
+        required=False,
+    )
+
+    clrsby = schema.TextLine(
+        title=_(u"Solar Calendar: Begin Year"),
+        required=False,
+    )
+
+    clrsbs = schema.TextLine(
+        title=_(u"Solar Calendar: Begin Season"),
+        required=False,
+    )
+
+    clrsbm = schema.TextLine(
+        title=_(u"Solar Calendar: Begin Month"),
+        required=False,
+    )
+
+    clrsbd = schema.TextLine(
+        title=_(u"Solar Calendar: Begin Date"),
+        required=False,
+    )
+
+    clrsbt = schema.TextLine(
+        title=_(u"Solar Calendar: Begin Time"),
+        required=False,
+    )
+
+    clrsey = schema.TextLine(
+        title=_(u"Solar Calendar: End Year"),
+        required=False,
+    )
+
+    clrses = schema.TextLine(
+        title=_(u"Solar Calendar: End Season"),
+        required=False,
+    )
+
+    clrsem = schema.TextLine(
+        title=_(u"Solar Calendar: End Month"),
+        required=False,
+    )
+
+    clrsed = schema.TextLine(
+        title=_(u"Solar Calendar: End Date"),
+        required=False,
+    )
+
+    clrset = schema.TextLine(
+        title=_(u"Solar Calendar: End Time"),
         required=False,
     )
 
@@ -47,18 +135,37 @@ class IClimate(Interface):
         required=False,
     )
 
+    lcte = schema.Float(
+        title=_(u"Location Lon"),
+        required=False,
+    )
+
+    lctn = schema.Float(
+        title=_(u"Location Lat"),
+        required=False,
+    )
+
     lcth = schema.Float(
         title=_(u"Location Height"),
         required=False,
     )
 
-    event = schema.Text(
-        title=_(u"Event Code"),
+    hpng = schema.Text(
+        title=_(u"Event List"),
         required=False,
     )
 
-    source = schema.List(
+    tsrc = schema.TextLine(
         title=_(u"Text Source"),
-        value_type=schema.TextLine(),
+        required=False,
+    )
+
+    novl = schema.TextLine(
+        title=_(u"Volume No."),
+        required=False,
+    )
+
+    nopg = schema.TextLine(
+        title=_(u"Page No."),
         required=False,
     )
