@@ -146,9 +146,14 @@
   <title i18n:translate="">Location Past</title>
   <required>False</required>
  </field>
- <field name="lctn"
-  type="zope.schema.Text">
-  <title i18n:translate="">Location Now</title>
+ <field name="lctnf"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Location Now: Level 1</title>
+  <required>False</required>
+ </field>
+ <field name="lctns"
+  type="zope.schema.TextLine">
+  <title i18n:translate="">Location Now: Level 2</title>
   <required>False</required>
  </field>
  <field name="lcte"

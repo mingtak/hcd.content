@@ -129,9 +129,13 @@ class IClimate(Interface):
         required=False,
     )
 
-    lctn = schema.List(
-        title=_(u"Location Now"),
-        value_type=schema.TextLine(),
+    lctnf = schema.TextLine(
+        title=_(u"Location Now: Level 1"),
+        required=False,
+    )
+
+    lctns = schema.TextLine(
+        title=_(u"Location Now: Level 2"),
         required=False,
     )
 
