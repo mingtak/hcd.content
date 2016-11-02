@@ -79,11 +79,6 @@ class IClimate(Interface):
         required=False,
     )
 
-    clrsbs = schema.TextLine(
-        title=_(u"Solar Calendar: Begin Season"),
-        required=False,
-    )
-
     clrsbm = schema.TextLine(
         title=_(u"Solar Calendar: Begin Month"),
         required=False,
@@ -101,11 +96,6 @@ class IClimate(Interface):
 
     clrsey = schema.TextLine(
         title=_(u"Solar Calendar: End Year"),
-        required=False,
-    )
-
-    clrses = schema.TextLine(
-        title=_(u"Solar Calendar: End Season"),
         required=False,
     )
 
