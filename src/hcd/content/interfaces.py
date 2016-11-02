@@ -119,12 +119,12 @@ class IClimate(Interface):
         required=False,
     )
 
-    lctnf = schema.TextLine(
+    lctf = schema.TextLine(
         title=_(u"Location Now: Level 1"),
         required=False,
     )
 
-    lctns = schema.TextLine(
+    lcts = schema.TextLine(
         title=_(u"Location Now: Level 2"),
         required=False,
     )
@@ -141,6 +141,11 @@ class IClimate(Interface):
 
     lcth = schema.Float(
         title=_(u"Location Height"),
+        required=False,
+    )
+
+    lcti = schema.TextLine(
+        title=_(u"Location ID"),
         required=False,
     )
 
