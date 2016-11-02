@@ -8,24 +8,24 @@ from hcd.content.interfaces import IClimate
 
 @indexer(IClimate)
 def clrsYear_indexer(obj):
-    if obj.clrs:
-        return int(obj.clrs[0])
+    if obj.clrsby:
+        return int(obj.clrsby)
 
 
 @indexer(IClimate)
 def event_indexer(obj):
-    event = getattr(obj, 'event')
+    event = getattr(obj, 'hpng')
 
 #    import pdb; pdb.set_trace()
 
     if event:
         event = event.split(';')
     else:
-        return
+        return None
 
     for i in range(len(event)):
         if int(event[i]) < 1:
             event[i] = event[i].strip()
             continue
-        event[i] = event[i].strip()[0:2]
+        event[i] = event[i].strip()[0:4]
     return event
