@@ -21,22 +21,29 @@ def hpng(obj):
 
 @indexer(IClimate)
 def ctgr1_indexer(obj):
-    return [i[0:2] for i in hpng(obj)]
-
+    hpngList = hpng(obj)
+    if hpngList:
+        return [i[0:2] for i in hpngList]
 
 @indexer(IClimate)
 def ctgr2_indexer(obj):
-    return [i[0:4] for i in hpng(obj)]
+    hpngList = hpng(obj)
+    if hpngList:
+        return [i[0:4] for i in hpngList]
 
 
 @indexer(IClimate)
 def degree_indexer(obj):
-    return [i[7:8] for i in hpng(obj)]
+    hpngList = hpng(obj)
+    if hpngList:
+        return [i[7:8] for i in hpngList]
 
 
 @indexer(IClimate)
 def lasting_indexer(obj):
-    return [i[8:9] for i in hpng(obj)]
+    hpngList = hpng(obj)
+    if hpngList:
+        return [i[8:9] for i in hpngList]
 
 
 @indexer(IClimate)
