@@ -33,6 +33,9 @@
       factory=".setuphandlers.HiddenProfiles"
       name="hcd.content-hiddenprofiles" />
 
-  <adapter name="event" factory=".catalog.event_indexer" />
-  <adapter name="clrsYear" factory=".catalog.clrsYear_indexer" />
+  <adapter name="ctgr1" factory=".catalog.ctgr1_indexer" />
+  <adapter name="ctgr2" factory=".catalog.ctgr2_indexer" />
+  <adapter name="degree" factory=".catalog.degree_indexer" />
+  <adapter name="lasting" factory=".catalog.lasting_indexer" />
+  <adapter name="clrsby" factory=".catalog.clrsby_indexer" />
 </configure>
