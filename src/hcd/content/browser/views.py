@@ -35,8 +35,16 @@ class GetClimate(BrowserView):
 
     def getBrain(self):
         catalog = self.context.portal_catalog
+        # TODO: index 名稱有改過， 'event' 要再改名稱, 要再查看'hpng'的index對應值
         # TODO: 目前只能以主類別搜尋，與次類別的交聯集尚未完成
-        return catalog({'Type':'Climate', 'ctgr1':self.para, 'clrsby':{'query':self.yearRange, 'range':'min:max'}})
+        ctgr1 = []
+        ctgr2 = []
+        for para in self.para:
+            if len(para) == 2:
+                ctgr1.append(para)
+            elif len(para) == 4:
+                ctgr2.append(para)
+        return catalog({'Type':'Climate', 'ctgr2':ctgr2, 'clrsby':{'query':self.yearRange, 'range':'min:max'}})
 
 
     def downloadFile(self):

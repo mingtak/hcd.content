@@ -3,6 +3,23 @@
      tal:attributes="href python:'%s?%s&download=1' % (view.request.getURL(), view.request.get('QUERY_STRING'))">Download Results</a>
 </p>
 
+<!--
+  <p class="col-sm-6 col-xs-4">
+    <input tal:define="code python:group.split('|')[0].strip().split(':')[0]"
+           tal:attributes="name code;id code; value code"
+           type="checkbox" class='click_group'/>
+    <span tal:content="pyth">程度不明</span>
+  </p>
+-->
+<!--
+<p class="context pull-left">
+<h4>程度</h4>
+  <input type="checkbox" class='click_group' name id value/>
+  <span>程度不明</span>
+</p>
+-->
+
+
 <ul tal:define="brain view/brain">
     <li tal:repeat="item brain">
         <a tal:attributes="href item/getURL" tal:content="item/Title" target="_blank"/>

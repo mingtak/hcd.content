@@ -64,22 +64,25 @@ portal = api.portal.get()
     <tr tal:define="sortedEvent python:ctgr[group].keys();
                     tmp python:sortedEvent.sort()"
         tal:repeat="event sortedEvent">
+<!-- 主分類 -->
         <td style="width:25%">
           <input type="checkbox" name="event"
                  tal:define="value python:event.strip().split(':')[0];
                              group python:group.split('|')[0].split(':')[0].strip()"
-                 tal:attributes="value value;
-                                 class python:'event %s' % group"/>
+                 tal:attributes="id python:'event_%s' % value;
+                                 value value;
+                                 class python:'event click_events %s' % group"/>
           <span tal:content="python:event.strip().split(':')[1]" />
         </td>
 
+<!-- 次分類 -->
         <td>
             <tal:item repeat="item python:ctgr[group][event].keys()">
                 <input type="checkbox" name="item"
                        tal:define="value python:item.strip().split(':')[0];
                                    group python:group.split('|')[0].split(':')[0].strip()"
                        tal:attributes="value value;
-                                       class python:'event %s %s' % (group, event.strip().split(':')[0])"/>
+                                       class python:'event %s event_%s' % (group, event.strip().split(':')[0])"/>
                 <span tal:content="python:item.strip().split(':')[1]" />
             </tal:item>
         </td>
@@ -107,11 +110,11 @@ portal = api.portal.get()
 // select all , cancle
 $("#click_all").click(function() {
    if($("#click_all").prop("checked")) {
-     $("input[name='event']").prop("checked", true);
-     $("input[class='click_group']").prop("checked", true);
+     $("input.event").prop("checked", true);
+     $("input.click_group").prop("checked", true);
    } else {
-     $("input[name='event']").prop("checked", false);
-     $("input[class='click_group']").prop("checked", false);
+     $("input.event").prop("checked", false);
+     $("input.click_group").prop("checked", false);
    }
 });
 
@@ -119,12 +122,37 @@ $("#click_all").click(function() {
 $(".click_group").click(function() {
    var tag_id = this.id;
    if($("#" + tag_id).prop("checked")) {
-     $("input[class='event group_" + tag_id.substr(-1) + "']").prop("checked", true);
+     $("input.event.group_" + tag_id.substr(-1)).prop("checked", true);
    } else {
-     $("input[class='event group_" + tag_id.substr(-1) + "']").prop("checked", false);
+     $("input.event.group_" + tag_id.substr(-1)).prop("checked", false);
      $("input[name='click_all']").prop("checked", false);
    }
 });
+
+// select items from class.event_id and cancle
+$(".click_events").click(function() {
+   var tag_id = this.id;
+   if($("#" + tag_id).prop("checked")) {
+     $("input." + tag_id).prop("checked", true);
+   } else {
+     $("input." + tag_id).prop("checked", false);
+//     $("input[name='click_all']").prop("checked", false);
+   }
+});
+
+// Cancle selected
+$(".event").click(function() {
+   var tag = this;
+   var tag_id = tag.id;
+   var classList = tag.classList;
+   if(! $("#" + tag_id).prop("checked")) {
+       for(var i=0; i<classList.length; i++) {
+         $("input#" + classList[i]).prop("checked", false);
+       }
+       $("input[name='click_all']").prop("checked", false);
+   }
+});
+
 
 // function(), ajax for getClimate
 var getClimate = function(){
