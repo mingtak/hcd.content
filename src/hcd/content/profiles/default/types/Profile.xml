@@ -28,7 +28,7 @@
   <property name="klass">hcd.content.content.Profile</property>
   <property name="model_file">hcd.content.models:profile.xml</property>
   <property name="model_source"></property>
-  <property name="schema">hcd.content.profile.IProfile</property>
+  <property name="schema">hcd.content.interfaces.IProfile</property>
 
   <!-- Enabled behaviors -->
   <property name="behaviors">
