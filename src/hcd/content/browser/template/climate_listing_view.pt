@@ -37,7 +37,7 @@ portal = api.portal.get()
 <hr>
 
 <div class="row">
-<div class="col-sm-4">
+<div class="col-sm-5">
   <p class="col-sm-12" style="margin:20px 0 50px 0">
     <input type="hidden" id="year-selector" value="2000" /> 
   </p>
@@ -59,24 +59,41 @@ portal = api.portal.get()
 
 <hr>
 
-<div style="padding-top:150px">
-  <tal:group_2 repeat="group ctgr">
-    <p tal:repeat="event python:ctgr[group].keys()" class="col-sm-6 col-xs-4">
-      <input type="checkbox" name="event"
-             tal:define="value python:event.strip().split(':')[0];
-                         group python:group.split('|')[0].split(':')[0].strip()"
-             tal:attributes="value value;
-                             class python:'event %s' % group"/>
-      <span tal:content="python:event.strip().split(':')[1]" />
-    </p>
+<table class="listing">
+  <tal:group_2 repeat="group sortedCtgr">
+    <tr tal:define="sortedEvent python:ctgr[group].keys();
+                    tmp python:sortedEvent.sort()"
+        tal:repeat="event sortedEvent">
+        <td style="width:25%">
+          <input type="checkbox" name="event"
+                 tal:define="value python:event.strip().split(':')[0];
+                             group python:group.split('|')[0].split(':')[0].strip()"
+                 tal:attributes="value value;
+                                 class python:'event %s' % group"/>
+          <span tal:content="python:event.strip().split(':')[1]" />
+        </td>
+
+        <td>
+            <tal:item repeat="item python:ctgr[group][event].keys()">
+                <input type="checkbox" name="item"
+                       tal:define="value python:item.strip().split(':')[0];
+                                   group python:group.split('|')[0].split(':')[0].strip()"
+                       tal:attributes="value value;
+                                       class python:'event %s %s' % (group, event.strip().split(':')[0])"/>
+                <span tal:content="python:item.strip().split(':')[1]" />
+            </tal:item>
+        </td>
+
+    </tr>
+
   </tal:group_2>
-</div>
+</table>
 
 </tal:group>
 
 </div>
 
-<div class="col-sm-8">
+<div class="col-sm-7">
     <div class="result">Result</div>
 </div>
 
