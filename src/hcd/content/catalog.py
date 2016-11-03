@@ -36,14 +36,14 @@ def ctgr2_indexer(obj):
 def degree_indexer(obj):
     hpngList = hpng(obj)
     if hpngList:
-        return [i[7:8] for i in hpngList]
+        return ['%s%s' % (i[0:2], i[7]) for i in hpngList] + ['%s%s' % (i[0:4], i[7]) for i in hpngList]
 
 
 @indexer(IClimate)
 def lasting_indexer(obj):
     hpngList = hpng(obj)
     if hpngList:
-        return [i[8:9] for i in hpngList]
+        return ['%s%s' % (i[0:2], i[8]) for i in hpngList] + ['%s%s' % (i[0:4], i[8]) for i in hpngList]
 
 
 @indexer(IClimate)
