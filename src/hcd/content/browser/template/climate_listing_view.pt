@@ -19,13 +19,14 @@ portal = api.portal.get()
 
 <h1>Climate listing view</h1>
 
-<section tal:define="events view/events">
+<section tal:define="ctgr python:view.ctgr">
 
 <div class="row">
     <div class="com-md-12">
         <h3>事件分類編輯</h3>
         <form tal:attributes="action context/absolute_url" method="get">
-        <textarea id="category-edit" name="category-edit" class="textarea-widget list-field"><tal:text repeat="item events" content="python:'%s\n' % item if not repeat['item'].end else item" /></textarea>
+        <textarea id="category-edit" name="category-edit" class="textarea-widget list-field"
+                  tal:content="view/getCtgr_text"></textarea>
         <p></p>
         <input id="category-submit" name="category-submit" class="context" value="save" type="submit">
         <a tal:attributes="href context/absolute_url" class="standalone">Default Category</a>
@@ -46,20 +47,21 @@ portal = api.portal.get()
     <span>全選/全不選</span>
   </p>
 
-<tal:group repeat="group events">
-  <p class="col-sm-6 col-xs-4">
-    <input tal:define="code python:group.split('|')[0].strip().split(':')[0]"
+<tal:group define="sortedCtgr python:ctgr.keys();
+                   tmp python:sortedCtgr.sort()">
+
+  <p tal:repeat="group sortedCtgr" class="col-sm-6 col-xs-4">
+    <input tal:define="code python:group.strip().split(':')[0]"
            tal:attributes="name code;id code; value code"
            type="checkbox" class='click_group'/>
-    <span tal:content="python:group.split('|')[0].strip().split(':')[1]">氣象</span>
+    <span tal:content="python:group.strip().split(':')[1]">氣象</span>
   </p>
-</tal:group>
 
 <hr>
 
 <div style="padding-top:150px">
-  <tal:group repeat="group events">
-    <p tal:repeat="event python:group.split('|')[1].split(',')" class="col-sm-6 col-xs-4">
+  <tal:group_2 repeat="group ctgr">
+    <p tal:repeat="event python:ctgr[group].keys()" class="col-sm-6 col-xs-4">
       <input type="checkbox" name="event"
              tal:define="value python:event.strip().split(':')[0];
                          group python:group.split('|')[0].split(':')[0].strip()"
@@ -67,9 +69,10 @@ portal = api.portal.get()
                              class python:'event %s' % group"/>
       <span tal:content="python:event.strip().split(':')[1]" />
     </p>
-  </tal:group>
+  </tal:group_2>
 </div>
 
+</tal:group>
 
 </div>
 
