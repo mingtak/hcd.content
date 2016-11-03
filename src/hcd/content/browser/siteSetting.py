@@ -11,10 +11,9 @@ from zope import schema
 
 class ISiteSetting(Form.Schema):
 
-    event = schema.List(
+    event = schema.Text(
         title=_(u"Event Code and Description"),
-        description=_(u"Please use ':' to split event code and description"),
-        value_type=schema.TextLine(),
+        description=_(u"Support Json format"),
         required=False,
     )
 
