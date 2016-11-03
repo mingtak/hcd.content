@@ -17,24 +17,24 @@ from plone import api
 portal = api.portal.get()
 ?>
 
-<h1>Climate listing view</h1>
+<tal:h1 switch="python:view.request.form.get('custom')">
+    <h1 tal:case="python:'y'">目前使用自定義分類</h1>
+    <h1 tal:case="default">目前使用預設分類</h1>
+</tal:h1>
 
 <section tal:define="ctgr python:view.ctgr">
 
 <div class="row">
     <div class="com-md-12">
-        <h3>事件分類編輯</h3>
-        <form tal:attributes="action context/absolute_url" method="get">
-        <textarea id="category-edit" name="category-edit" class="textarea-widget list-field"
-                  tal:content="view/getCtgr_text"></textarea>
-        <p></p>
-        <input id="category-submit" name="category-submit" class="context" value="save" type="submit">
-        <a tal:attributes="href context/absolute_url" class="standalone">Default Category</a>
-        </form>
+<tal:custom condition="python:not api.user.is_anonymous()">
+        <a tal:attributes="href context/absolute_url" class="standalone">使用預設分類</a>
+        <a tal:attributes="href string:${context/absolute_url}?custom=y" class="standalone">使用自定分類</a>
+        <a tal:attributes="href python:'%s/members/%s' % (portal.absolute_url(), api.user.get_current().id)" class="standalone">編輯自定分類</a>
+</tal:custom>
     </div>
 </div>
-
 <hr>
+
 
 <div class="row">
 <div class="col-sm-5">

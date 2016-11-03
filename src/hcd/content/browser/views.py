@@ -74,8 +74,15 @@ class ClimateListingView(BrowserView):
     template = ViewPageTemplateFile("template/climate_listing_view.pt")
 
     def __call__(self):
-        if self.request.form.get('category-edit'):
-            self.ctgr = json.loads(self.request.form.get('category-edit'))
+        context = self.context
+        portal = api.portal.get()
+
+        if self.request.form.get('custom'):
+            if api.user.is_anonymous():
+                request.response.redirect(context.absolute_url())
+                return
+            jsonString = portal['members'][api.user.get_current().id].customCategories
+            self.ctgr = json.loads(jsonString)
         else:
             self.ctgr = self.getCtgr()
         return self.template()
