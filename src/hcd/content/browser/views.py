@@ -4,6 +4,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from cStringIO import StringIO
 import csv
+import json
 
 
 class GetClimate(BrowserView):
@@ -34,7 +35,8 @@ class GetClimate(BrowserView):
 
     def getBrain(self):
         catalog = self.context.portal_catalog
-        return catalog({'Type':'Climate', 'event':self.para, 'clrsYear':{'query':self.yearRange, 'range':'min:max'}})
+        # TODO: 目前只能以主類別搜尋，與次類別的交聯集尚未完成
+        return catalog({'Type':'Climate', 'ctgr1':self.para, 'clrsby':{'query':self.yearRange, 'range':'min:max'}})
 
 
     def downloadFile(self):
@@ -43,13 +45,16 @@ class GetClimate(BrowserView):
 
         output = StringIO()
         writer = csv.writer(output)
-        writer.writerow(['Title', 'Description', 'Event code', 'Source'])
+        writer.writerow(['事件-事件敘述', '事件-文本內容', '事件編碼', '文獻名稱', '冊', '頁碼'])
         for item in self.brain:
             itemObj = item.getObject()
+            # TODO: 要寫入那些值，這裏是sample，正確的內容要再確認
             writer.writerow([itemObj.title.encode('utf-8'),
                              itemObj.description.encode('utf-8'),
-                             itemObj.event.encode('utf-8'),
-                             ', '.join(itemObj.source).encode('utf-8')])
+                             itemObj.hpng.encode('utf-8'),
+                             itemObj.tsrc.encode('utf-8'),
+                             itemObj.novl.encode('utf-8'),
+                             itemObj.nopg.encode('utf-8'),])
 
         results = output.getvalue()
         output.close()
@@ -62,13 +67,17 @@ class ClimateListingView(BrowserView):
 
     def __call__(self):
         if self.request.form.get('category-edit'):
-            self.events = self.request.form.get('category-edit').split('\n')
+            self.ctgr = json.loads(self.request.form.get('category-edit'))
         else:
-            self.events = self.getEventList()
+            self.ctgr = self.getCtgr()
         return self.template()
 
 
-    def getEventList(self):
+    def getCtgr(self):
+        return json.loads(api.portal.get_registry_record('hcd.content.browser.siteSetting.ISiteSetting.event'))
+
+
+    def getCtgr_text(self):
         return api.portal.get_registry_record('hcd.content.browser.siteSetting.ISiteSetting.event')
 
 
