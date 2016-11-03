@@ -178,11 +178,6 @@ class IProfile(Interface):
         required=False,
     )
 
-    description = schema.Text(
-        title=_(u"Description"),
-        required=False,
-    )
-
     customCategories = schema.Text(
         title=_(u"Custom Categories."),
         required=False,

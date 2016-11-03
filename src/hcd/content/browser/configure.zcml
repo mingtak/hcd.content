@@ -18,6 +18,13 @@
       />
 
   <browser:page
+      name="profile_view"
+      for="hcd.content.interfaces.IProfile"
+      class=".views.ProfileView"
+      permission="zope2.View"
+      />
+
+  <browser:page
       name="import_csv"
       for="*"
       class=".import_csv.ImportCSV"

@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    lang="en"
+    metal:use-macro="context/main_template/macros/master"
+    i18n:domain="hcd.content">
+<body>
+
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core"
+                    tal:define="toc context/table_of_contents|nothing;">
+
+<?python
+import json
+?>
+
+<h3 tal:content="context/title"/>
+<div class="row">
+<div class="col-md-12">
+<form tal:attributes="action context/absolute_url" method="post">
+  <table class="listing"
+         tal:define="jsonData python:json.loads(context.customCategories)">
+    <tal:group define="sortedGroup python:jsonData.keys();
+                       tmp python:sortedGroup.sort()"
+               repeat="group sortedGroup">
+      <tr tal:define="sortedItem python:jsonData[group].keys();
+                      tmp python:sortedItem.sort()"
+          tal:repeat="item sortedItem">
+        <td tal:content="item" style="width:30%"/>
+        <td>
+          <input tal:attributes="name python:item; value python:group.split(':')[1];"/>
+        </td>
+      </tr>
+    </tal:group>
+  </table>
+  <input type="submit" name="submit" />
+</form>
+</div>
+</div>
+
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+

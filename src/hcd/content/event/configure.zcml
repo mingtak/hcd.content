@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="hcd.content">
+
+    <subscriber
+        for="Products.PlonePAS.events.UserLoggedInEvent"
+        handler=".userevent.checkProfile"
+        />
+
+
+</configure>
+

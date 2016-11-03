@@ -89,6 +89,46 @@ class ClimateListingView(BrowserView):
         return api.portal.get_registry_record('hcd.content.browser.siteSetting.ISiteSetting.event')
 
 
+class ProfileView(BrowserView):
+
+    template = ViewPageTemplateFile("template/profile_view.pt")
+
+    def __call__(self):
+        context = self.context
+        request = self.request
+
+        resourceJson = json.loads(api.portal.get_registry_record('hcd.content.browser.siteSetting.ISiteSetting.event'))
+
+        if request.form.get('submit'):
+            newJson = {}
+            for item in request.form.items():
+                if newJson.get(item[1]):
+                    newJson[item[1]].append(item[0])
+                elif ':' not in item[0]:
+                    continue
+                else:
+                    newJson[item[1]] = [item[0]]
+
+            pool = {}
+            for group in resourceJson.values():
+                for item in group.items():
+                    pool[item[0]] = item[1]
+
+            resultJson = {}
+            groupCount = 1
+            for items in newJson.items():
+                resultJson['group_%s:%s' % (groupCount, items[0])] = {}
+                for item in items[1]:
+                    resultJson['group_%s:%s' % (groupCount, items[0])][item] = pool[item.decode('utf-8')]
+                groupCount += 1
+
+            context.customCategories = json.dumps(resultJson)
+            request.response.redirect(context.absolute_url())
+            return
+
+        return self.template()
+
+
 class MapView(BrowserView):
 
     template = ViewPageTemplateFile("template/map-view.pt")
