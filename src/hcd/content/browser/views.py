@@ -63,15 +63,43 @@ class GetClimate(BrowserView):
         output = StringIO()
         writer = csv.writer(output)
         writer.writerow(['事件-事件敘述', '事件-文本內容', '事件編碼', '文獻名稱', '冊', '頁碼'])
+        writer.writerow(['資料編號-文本ID', '資料編號-事件編碼', '事件-文本內容', '事件-事件敘述', '農曆起始時間-文本西元年', '農曆起始時間-季節', '農曆起始時間-月', '農曆起始時間-日', '農曆起始時間-時-代碼', '農曆迄止時間-文本西元年', '農曆迄止時間-季節', '農曆迄止時間-月', '農曆迄止時間-日', '農曆迄止時間-時-代碼', '西曆起始時間-年', '西曆起始時間-月', '西曆起始時間-日', '西曆起始時間-時-代碼', '西曆迄止時間-年', '西曆迄止時間-月', '西曆迄止時間-日', '西曆迄止時間-時-代碼', '空間-古地名', '空間-今隸屬省級', '空間-今隸屬縣市', '空間-經度', '空間-緯度', '空間-高度', '空間-縣市ID', '事件編碼', '文獻名稱', '冊', '頁碼'])
         for item in self.brain:
             itemObj = item.getObject()
             # TODO: 要寫入那些值，這裏是sample，正確的內容要再確認
-            writer.writerow([itemObj.title.encode('utf-8'),
+            writer.writerow([itemObj.id[0:7].encode('utf-8'),
+                             itemObj.id[8:].encode('utf-8'),
                              itemObj.description.encode('utf-8'),
+                             itemObj.title.encode('utf-8'),
+                             itemObj.clrlby.encode('utf-8'),
+                             itemObj.clrlbs.encode('utf-8'),
+                             itemObj.clrlbm.encode('utf-8'),
+                             itemObj.clrlbd.encode('utf-8'),
+                             itemObj.clrlbt.encode('utf-8'),
+                             itemObj.clrley.encode('utf-8'),
+                             itemObj.clrles.encode('utf-8'),
+                             itemObj.clrlem.encode('utf-8'),
+                             itemObj.clrled.encode('utf-8'),
+                             itemObj.clrlet.encode('utf-8'),
+                             itemObj.clrsby.encode('utf-8'),
+                             itemObj.clrsbm.encode('utf-8'),
+                             itemObj.clrsbd.encode('utf-8'),
+                             itemObj.clrsbt.encode('utf-8'),
+                             itemObj.clrsey.encode('utf-8'),
+                             itemObj.clrsem.encode('utf-8'),
+                             itemObj.clrsed.encode('utf-8'),
+                             itemObj.clrset.encode('utf-8'),
+                             itemObj.lctp.encode('utf-8'),
+                             itemObj.lctf.encode('utf-8'),
+                             itemObj.lcts.encode('utf-8'),
+                             itemObj.lcti.encode('utf-8'),
+                             itemObj.lcte.encode('utf-8'),
+                             itemObj.lctn.encode('utf-8'),
+                             itemObj.lcth.encode('utf-8'),
                              itemObj.hpng.encode('utf-8'),
                              itemObj.tsrc.encode('utf-8'),
                              itemObj.novl.encode('utf-8'),
-                             itemObj.nopg.encode('utf-8'),])
+                             itemObj.nopg.encode('utf-8')])
 
         results = output.getvalue()
         output.close()
