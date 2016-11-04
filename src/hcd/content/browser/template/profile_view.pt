@@ -22,17 +22,21 @@ import json
 <form tal:attributes="action context/absolute_url" method="post">
   <table class="listing"
          tal:define="jsonData python:json.loads(context.customCategories)">
-    <tal:group define="sortedGroup python:jsonData.keys();
-                       tmp python:sortedGroup.sort()"
-               repeat="group sortedGroup">
-      <tr tal:define="sortedItem python:jsonData[group].keys();
-                      tmp python:sortedItem.sort()"
-          tal:repeat="item sortedItem">
+    <tal:group define="sortedGroup python:jsonData;
+                       tmp python:[];
+                       tmp2 python:[tmp.extend(i) for i in sortedGroup.values()];
+                       sortedEvent tmp;
+                       tmp python:sortedEvent.sort()">
+
+      <tr tal:repeat="item sortedEvent">
         <td tal:content="item" style="width:30%"/>
-        <td>
-          <input tal:attributes="name python:item; value python:group.split(':')[1];"/>
+        <td tal:define="groupName python:[];
+                        tmp python:[groupName.extend(i) if item in i[1] else '' for i in sortedGroup.items()];
+                        groupName python:groupName[0]">
+          <input tal:attributes="name python:item; value python:groupName.split(':')[1]"/>
         </td>
       </tr>
+
     </tal:group>
   </table>
   <input type="submit" name="submit" />
