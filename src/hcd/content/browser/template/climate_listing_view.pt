@@ -39,7 +39,7 @@ portal = api.portal.get()
 <div class="row">
 <div class="col-sm-5">
   <p class="col-sm-12" style="margin:20px 0 50px 0">
-    <input type="hidden" id="year-selector" value="2000" /> 
+    <input type="hidden" id="year-selector" value="1450,1950" /> 
   </p>
 
   <p class="col-sm-12"> 
@@ -175,12 +175,12 @@ $(':checkbox').change(function() {
 
 // Range bar using jquery.range.js
 $('#year-selector').jRange({
-    from: 0,
-    to: 2000,
+    from: 1450,
+    to: 1950,
     step: 1,
-    scale: [0,500,1000,1500,2000],
+    scale: [1450,1750,1950],
     format: '%s',
-    width: 300,
+    width: 420,
     showLabels: true,
     isRange : true,
     ondragend: function(){
