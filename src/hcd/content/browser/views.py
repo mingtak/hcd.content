@@ -14,7 +14,6 @@ class GetClimate(BrowserView):
     def __call__(self):
         context = self.context
         request = self.request
-#        catalog = context.portal_catalog
 
         self.para = request.get('para')
         self.yearRange = request.form.get('yearRange')
@@ -35,8 +34,6 @@ class GetClimate(BrowserView):
 
     def getBrain(self):
         catalog = self.context.portal_catalog
-        # TODO: index 名稱有改過， 'event' 要再改名稱, 要再查看'hpng'的index對應值
-        # TODO: 目前只能以主類別搜尋，與次類別的交聯集尚未完成
         ctgr1 = []
         ctgr2 = []
         for para in self.para:
@@ -44,7 +41,19 @@ class GetClimate(BrowserView):
                 ctgr1.append(para)
             elif len(para) == 4:
                 ctgr2.append(para)
-        return catalog({'Type':'Climate', 'ctgr2':ctgr2, 'clrsby':{'query':self.yearRange, 'range':'min:max'}})
+        queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
+        if ctgr1:
+            queryDict['ctgr1'] = ctgr1
+
+        if ctgr2 and ctgr1:
+            for key in ctgr1:
+                for j in range(len(ctgr2)-1, -1, -1):
+                    if ctgr2[j].startswith(key):
+                        ctgr2.pop(j)
+        if ctgr2:
+            queryDict['ctgr2'] = ctgr2           
+
+        return catalog(queryDict)
 
 
     def downloadFile(self):
