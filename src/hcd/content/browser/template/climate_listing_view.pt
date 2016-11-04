@@ -77,7 +77,9 @@ portal = api.portal.get()
 
 <!-- 次分類 -->
         <td>
-            <tal:item repeat="item python:ctgr[group][event].keys()">
+            <tal:item define="sortedItem python:ctgr[group][event].keys();
+                              tmp python:sortedItem.sort()"
+                      repeat="item sortedItem">
                 <input type="checkbox" name="item"
                        tal:define="value python:item.strip().split(':')[0];
                                    group python:group.split('|')[0].split(':')[0].strip()"
