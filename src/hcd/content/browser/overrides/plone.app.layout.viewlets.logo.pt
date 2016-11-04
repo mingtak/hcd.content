@@ -1,0 +1,8 @@
+<a id="portal-logo"
+   title="Home"
+   tal:attributes="href view/navigation_root_url;
+                   title view/navigation_root_title"
+   i18n:domain="plone"
+   i18n:attributes="title">
+<span style="font-family: Roboto; font-size: 38px; font-weight: bold; color: Black">Sample Site</span>
+</a>
