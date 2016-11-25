@@ -61,6 +61,7 @@ class GetClimate(BrowserView):
         self.request.response.setHeader('Content-Disposition', 'attachment; filename="results.csv"')
 
         output = StringIO()
+        output.write(u'\uFEFF'.encode('utf-8'))
         writer = csv.writer(output)
         writer.writerow(['資料編號-文本ID', '資料編號-事件編碼', '事件-文本內容', '事件-事件敘述', '農曆起始時間-文本西元年', '農曆起始時間-季節', '農曆起始時間-月', '農曆起始時間-日', '農曆起始時間-時-代碼', '農曆迄止時間-文本西元年', '農曆迄止時間-季節', '農曆迄止時間-月', '農曆迄止時間-日', '農曆迄止時間-時-代碼', '西曆起始時間-年', '西曆起始時間-月', '西曆起始時間-日', '西曆起始時間-時-代碼', '西曆迄止時間-年', '西曆迄止時間-月', '西曆迄止時間-日', '西曆迄止時間-時-代碼', '空間-古地名', '空間-今隸屬省級', '空間-今隸屬縣市', '空間-經度', '空間-緯度', '空間-高度', '空間-縣市ID', '事件編碼', '文獻名稱', '冊', '頁碼'])
         for item in self.brain:
