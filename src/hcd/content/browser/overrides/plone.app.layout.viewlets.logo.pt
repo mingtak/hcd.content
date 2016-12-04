@@ -4,5 +4,5 @@
                    title view/navigation_root_title"
    i18n:domain="plone"
    i18n:attributes="title">
-<span style="font-family: Roboto; font-size: 38px; font-weight: bold; color: Black">Sample Site</span>
+<span style="font-family: Roboto; font-size: 38px; font-weight: bold; color: Black">歷史氣候資料庫</span>
 </a>
