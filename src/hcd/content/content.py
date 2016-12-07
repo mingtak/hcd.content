@@ -2,7 +2,7 @@ from zope.interface import implementer
 from plone.dexterity.content import Item
 
 from hcd.content.interfaces import IClimate
-from hcd.content.profile import IProfile
+from hcd.content.interfaces import IProfile
 
 
 @implementer(IClimate)
