@@ -99,9 +99,13 @@ portal = api.portal.get()
 </tal:group>
 
 </div>
-
+<!-- Leaflet Map -->
 <div class="col-sm-7">
-    <div class="result">Result</div>
+  <div id="mapmap" style="height: 350px; width: 100%; background-color: blue"></div>
+</div>
+<!-- Leaflet Map End -->
+<div class="col-sm-7">
+    <div id="pop_pop" class="result">Result</div>
 </div>
 
 </div>
@@ -193,6 +197,17 @@ $('#year-selector').jRange({
     onbarclicked: function(){
         getClimate();
     },
+});
+
+// Leaflet map
+var map = L.map('mapmap', {
+    center: [17.95, -76.75],
+    zoom: 12
+});
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+map.on('move', function(e) {
+  document.getElementById('pop_pop').innerHTML = "Bounds: " + (JSON.stringify(map.getBounds()))
+  return console.log(map.getBounds());
 });
 
 </script>
