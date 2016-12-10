@@ -1,3 +1,11 @@
+<?python
+from plone import api
+import random
+portal = api.portal.get()
+next_id = str(random.randint(1000000, 2000000))
+prev_id = str(random.randint(1000000, 2000000))
+?>
+
 <p>
   <a class="context pull-right"
      tal:attributes="href python:'%s?%s&download=1' % (view.request.getURL(), view.request.get('QUERY_STRING'))">Download Results</a>
@@ -20,8 +28,28 @@
 -->
 
 
-<ul tal:define="brain view/brain">
-    <li tal:repeat="item brain">
+<ul tal:define="brain view/brain; start python:view.page*20">
+    <li tal:repeat="item python:brain[start: start+20]">
         <a tal:attributes="href item/getURL" tal:content="item/Title" target="_blank"/>
     </li>
+
+<br>
+<a id="${next_id}" class="context pull-right" href="javascript:void(0)" tal:condition="python:(len(brain)/20) - view.page">下一頁</a>
+<a id="${prev_id}" class="context pull-left" href="javascript:void(0)" tal:condition="view/page">上一頁</a>
+
+<p style="margin:6px 150px 0px">
+  第 <span tal:replace="python:view.page+1"/> 頁 / 共 <span tal:replace="python:len(brain)/20 + 1"/> 頁
+</p>
+
 </ul>
+
+
+<script>
+    $(document).on('click', '#${next_id}', function(event){
+        $("div.result").load('${portal/absolute_url}/@@get_climate?queryString=${view/nextDict}');
+    });
+
+    $(document).on('click', '#${prev_id}', function(event){
+        $("div.result").load('${portal/absolute_url}/@@get_climate?queryString=${view/prevDict}');
+    });
+</script>

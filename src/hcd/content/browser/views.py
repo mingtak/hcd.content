@@ -7,28 +7,117 @@ import csv
 import json
 
 
+# bsym: Begin Solar Year Month
+
 class GetClimate(BrowserView):
 
     template = ViewPageTemplateFile("template/get_climate.pt")
+
+    def getPara_from_queryString(self):
+        context = self.context
+        request = self.request
+#        import pdb;pdb.set_trace()
+        tmpDict = json.loads(request.form.get('queryString'))
+        self.monthUnknow = tmpDict.get('monthUnknow')
+#        if tmpDict.get('page'):
+        self.prevDict = dict(tmpDict)
+        self.prevDict['page'] -= 1
+        self.prevDict = json.dumps(self.prevDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
+        self.nextDict = dict(tmpDict)
+        self.nextDict['page'] += 1
+        self.nextDict = json.dumps(self.nextDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
+
+
+        self.page = int(tmpDict.get('page', 0))
+        self.queryString = json.dumps(tmpDict)
+
+        self.para = tmpDict.get('para')
+        self.yearRange = tmpDict.get('yearRange')
+        self.yearStart = int(self.yearRange.split(',')[0])
+        self.monthStart = int(self.yearRange.split(',')[1])
+        self.yearEnd = int(self.yearRange.split(',')[2])
+        self.monthEnd = int(self.yearRange.split(',')[3])
+
+        self.yearRange = [self.yearStart, self.yearEnd]
+
+        if int(self.monthStart) < 10:
+            bsym_start = int('%s0%s' % (self.yearStart, self.monthStart))
+        else:
+            bsym_start = int('%s%s' % (self.yearStart, self.monthStart))
+
+        if int(self.monthEnd) < 10:
+            bsym_end = int('%s0%s' % (self.yearEnd, self.monthEnd))
+        else:
+            bsym_end = int('%s%s' % (self.yearEnd, self.monthEnd))
+
+        self.bsym = [bsym_start, bsym_end]
+
+
+
+
+
+    def getPara_from_Form(self):
+        context = self.context
+        request = self.request
+
+#        import pdb; pdb.set_trace()
+        self.page = int(request.get('page', 0))
+        tmpDict = dict(request.form)
+        tmpDict['page'] = self.page
+
+        self.monthUnknow = tmpDict.get('monthUnknow')
+#        if tmpDict.get('page'):
+        self.prevDict = dict(tmpDict)
+        self.prevDict['page'] -= 1
+        self.prevDict = json.dumps(self.prevDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
+#        import pdb; pdb.set_trace()
+        self.nextDict = dict(tmpDict)
+        self.nextDict['page'] += 1
+        self.nextDict = json.dumps(self.nextDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
+
+
+        self.queryString = json.dumps(tmpDict)
+
+        self.para = request.get('para')
+        self.yearRange = request.form.get('yearRange')
+        self.yearStart = int(self.yearRange.split(',')[0])
+        self.monthStart = int(self.yearRange.split(',')[1])
+        self.yearEnd = int(self.yearRange.split(',')[2])
+        self.monthEnd = int(self.yearRange.split(',')[3])
+
+        self.yearRange = [self.yearStart, self.yearEnd]
+
+        if int(self.monthStart) < 10:
+            bsym_start = int('%s0%s' % (self.yearStart, self.monthStart))
+        else:
+            bsym_start = int('%s%s' % (self.yearStart, self.monthStart))
+
+        if int(self.monthEnd) < 10:
+            bsym_end = int('%s0%s' % (self.yearEnd, self.monthEnd))
+        else:
+            bsym_end = int('%s%s' % (self.yearEnd, self.monthEnd))
+
+        self.bsym = [bsym_start, bsym_end]
+
 
     def __call__(self):
         context = self.context
         request = self.request
 
-        self.para = request.get('para')
-        self.yearRange = request.form.get('yearRange')
-        self.yearStart = int(self.yearRange.split(',')[0])
-        self.yearEnd = int(self.yearRange.split(',')[1])
-        self.yearRange = [self.yearStart, self.yearEnd]
+#        import pdb; pdb.set_trace()
+        if request.form.get('queryString'):
+            self.getPara_from_queryString()
+        else:
+            self.getPara_from_Form()
 
-        if not self.para or not self.yearRange:
+        if not self.para or not self.bsym:
             return '<div>No Result</div>'
 
         self.brain = self.getBrain()
 
         if request.form.get('download'):
             return self.downloadFile()
-            
+
         return self.template()
 
 
@@ -41,17 +130,25 @@ class GetClimate(BrowserView):
                 ctgr1.append(para)
             elif len(para) == 4:
                 ctgr2.append(para)
-        queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
-        if ctgr1:
-            queryDict['ctgr1'] = ctgr1
 
-        if ctgr2 and ctgr1:
-            for key in ctgr1:
-                for j in range(len(ctgr2)-1, -1, -1):
-                    if ctgr2[j].startswith(key):
-                        ctgr2.pop(j)
+#        import pdb; pdb.set_trace()
+        if self.monthUnknow == 'true':
+            queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
+        else:
+            queryDict = {'Type':'Climate', 'bsym':{'query':self.bsym, 'range':'min:max'}}
+#        queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
+
+# 改採只聯集不交集
+#        if ctgr1:
+#            queryDict['ctgr1'] = ctgr1
+
+#        if ctgr2 and ctgr1:
+#            for key in ctgr1:
+#                for j in range(len(ctgr2)-1, -1, -1):
+#                    if ctgr2[j].startswith(key):
+#                        ctgr2.pop(j)
         if ctgr2:
-            queryDict['ctgr2'] = ctgr2           
+            queryDict['ctgr2'] = ctgr2
 
         return catalog(queryDict)
 

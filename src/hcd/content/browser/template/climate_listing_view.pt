@@ -38,10 +38,17 @@ portal = api.portal.get()
 
 <div class="row">
 <div class="col-sm-5">
-  <p class="col-sm-12" style="margin:20px 0 50px 0">
-    <input type="hidden" id="year-selector" value="1450,1950" /> 
+<h4>年代選擇</h4>
+  <p class="col-sm-12" style="margin:5px 0 50px 0">
+    西元年 / 月(min:1450年1月 ~ max:1950年12月)<br><br>
+    起: <input type="number" min="1450" max="1950" step="10" id="year-start" class="year-selector" value="1450" style="max-width:25%"/>年
+        <input type="number" min="1" max="12" id="month-start" class="year-selector" value="1" style="max-width:25%"/>月<br><br>
+    迄: <input type="number" min="1450" max="1950" step="10" id="year-end" class="year-selector" value="1950" style="max-width:25%"/>年
+        <input type="number" min="1" max="12" id="month-end" class="year-selector" value="12" style="max-width:25%"/>月<br>
+<input type="checkbox" id="monthUnknow" name="monthUnknow" checked />僅依年代範圍搜尋(含月份不明)<br>
   </p>
 
+<h4>事件分類</h4>
   <p class="col-sm-12"> 
     <input type="checkbox" name="click_all" id="click_all" value="all" />
     <span>全選/全不選</span>
@@ -160,11 +167,18 @@ $(".event").click(function() {
 var getClimate = function(){
     var event = $("input.event:checked");
     var para = '';
-    var yearRange = $('#year-selector')[0]['value'];
+//    var yearRange = $('#year-selector')[0]['value'];
+    var yearRange = $('#year-start')[0]['value'] + ',' +
+                    $('#month-start')[0]['value'] + ',' +
+                    $('#year-end')[0]['value'] + ',' +
+                    $('#month-end')[0]['value'];
+    var monthUnknow = $('#monthUnknow')[0]['checked'];
+
     for(var i=0; i<event.length; i++) {
         para += "para:list=" + event[i].value + "&";
     };
-    para += 'yearRange=' + yearRange
+    para += 'yearRange=' + yearRange;
+    para += '&monthUnknow=' + monthUnknow;
 //    console.log(para);
 //    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para);
@@ -175,7 +189,13 @@ $(':checkbox').change(function() {
     getClimate();
 });
 
+// when year-selector checked.
+$('.year-selector').change(function() {
+    getClimate();
+});
+
 // Range bar using jquery.range.js
+/* 換掉不用了
 $('#year-selector').jRange({
     from: 1450,
     to: 1950,
@@ -192,6 +212,7 @@ $('#year-selector').jRange({
         getClimate();
     },
 });
+*/
 
 </script>
 

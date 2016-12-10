@@ -39,4 +39,5 @@
   <adapter name="degree" factory=".catalog.degree_indexer" />
   <adapter name="lasting" factory=".catalog.lasting_indexer" />
   <adapter name="clrsby" factory=".catalog.clrsby_indexer" />
+  <adapter name="bsym" factory=".catalog.bsym_indexer" />
 </configure>
