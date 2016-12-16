@@ -6,8 +6,9 @@
     metal:use-macro="context/main_template/macros/master"
     i18n:domain="hcd.content">
 <body>
-
-
+<metal:styleslot fill-slot="style_slot">
+   <link rel="stylesheet" tal:attributes="href string:++resource++hcd.content/leaflet/leaflet.css" />
+</metal:styleslot>
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core"
                     tal:define="toc context/table_of_contents|nothing;">
@@ -16,6 +17,7 @@
 from plone import api
 portal = api.portal.get()
 ?>
+
 
 <tal:h1 switch="python:view.request.form.get('custom')">
     <h1 tal:case="python:'y'">目前使用自定義分類</h1>
@@ -112,8 +114,8 @@ portal = api.portal.get()
 </div>
 </section>
 
-
-<script tal:attributes="src string:${portal/absolute_url}/++resource++hcd.content/jquery.range.js"></script>
+<script tal:attributes="src string:++resource++hcd.content/leaflet/leaflet.js"></script>
+<script tal:attributes="src string:++resource++hcd.content/jquery.range.js"></script>
 <script>
 
 // select all , cancle
