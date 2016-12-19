@@ -26,6 +26,10 @@
   </index>
   <column value="clrsby"/>
 
+  <index name="bsym" meta_type="FieldIndex">
+    <indexed_attr value="bsym" />
+  </index>
+  <column value="bsym"/>
    <index name="long_lat" meta_type="FieldIndex">
     <indexed_attr value="long_lat" />
   </index>

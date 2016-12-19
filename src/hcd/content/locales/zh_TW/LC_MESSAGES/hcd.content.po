@@ -1,19 +1,16 @@
-# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
-# SOME DESCRIPTIVE TITLE.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: hcd.content\n"
 "POT-Creation-Date: 2016-12-16 07:05+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2016-12-16 15:10+0800\n"
+"Last-Translator: TsungWei Hu <marr.tw@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
+"Language-Code: zh-tw\n"
+"Language-Name: Traditional Chinese\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: hcd.content\n"
 
@@ -33,11 +30,11 @@ msgstr ""
 #: ./profiles/default/types/Climate.xml
 #: ./profiles/default/types/Profile.xml
 msgid "Edit"
-msgstr ""
+msgstr "編輯"
 
 #: ./browser/siteSetting.py:15
 msgid "Event Code and Description"
-msgstr ""
+msgstr "類別設定"
 
 #: ./interfaces.py:153
 #: ./models/climate.xml
@@ -46,7 +43,7 @@ msgstr ""
 
 #: ./models/climate.xml
 msgid "Id"
-msgstr ""
+msgstr "資料編號"
 
 #: ./configure.zcml:22
 msgid "Installs the hcd.content add-on."
@@ -55,95 +52,95 @@ msgstr ""
 #: ./interfaces.py:143
 #: ./models/climate.xml
 msgid "Location Height"
-msgstr ""
+msgstr "空間-高度"
 
 #: ./interfaces.py:148
 msgid "Location ID"
-msgstr ""
+msgstr "空間-縣市ID"
 
 #: ./interfaces.py:138
 #: ./models/climate.xml
 msgid "Location Lat"
-msgstr ""
+msgstr "空間-緯度"
 
 #: ./interfaces.py:133
 #: ./models/climate.xml
 msgid "Location Lon"
-msgstr ""
+msgstr "空間-經度"
 
 #: ./interfaces.py:123
 #: ./models/climate.xml
 msgid "Location Now: Level 1"
-msgstr ""
+msgstr "空間-今隸屬省級"
 
 #: ./interfaces.py:128
 #: ./models/climate.xml
 msgid "Location Now: Level 2"
-msgstr ""
+msgstr "空間-今隸屬縣市"
 
 #: ./interfaces.py:118
 #: ./models/climate.xml
 msgid "Location Past"
-msgstr ""
+msgstr "空間-古地名"
 
 #: ./interfaces.py:43
 #: ./models/climate.xml
 msgid "Lunar Calendar: Begin Date"
-msgstr ""
+msgstr "農曆起始時間-日"
 
 #: ./interfaces.py:38
 #: ./models/climate.xml
 msgid "Lunar Calendar: Begin Month"
-msgstr ""
+msgstr "農曆起始時間-月"
 
 #: ./interfaces.py:33
 #: ./models/climate.xml
 msgid "Lunar Calendar: Begin Season"
-msgstr ""
+msgstr "農曆起始時間-季節"
 
 #: ./interfaces.py:48
 #: ./models/climate.xml
 msgid "Lunar Calendar: Begin Time"
-msgstr ""
+msgstr "農曆起始時間-時-代碼"
 
 #: ./interfaces.py:28
 #: ./models/climate.xml
 msgid "Lunar Calendar: Begin Year"
-msgstr ""
+msgstr "農曆起始時間-文本西元年"
 
 #: ./interfaces.py:68
 #: ./models/climate.xml
 msgid "Lunar Calendar: End Date"
-msgstr ""
+msgstr "農曆迄止時間-日"
 
 #: ./interfaces.py:63
 #: ./models/climate.xml
 msgid "Lunar Calendar: End Month"
-msgstr ""
+msgstr "農曆迄止時間-月"
 
 #: ./interfaces.py:58
 #: ./models/climate.xml
 msgid "Lunar Calendar: End Season"
-msgstr ""
+msgstr "農曆迄止時間-季節"
 
 #: ./interfaces.py:73
 #: ./models/climate.xml
 msgid "Lunar Calendar: End Time"
-msgstr ""
+msgstr "農曆迄止時間-時-代碼"
 
 #: ./interfaces.py:53
 #: ./models/climate.xml
 msgid "Lunar Calendar: End Year"
-msgstr ""
+msgstr "農曆迄止時間-文本西元年"
 
 #: ./browser/template/map-view.pt:21
 msgid "Map View"
-msgstr ""
+msgstr "地圖顯示"
 
 #: ./interfaces.py:168
 #: ./models/climate.xml
 msgid "Page No."
-msgstr ""
+msgstr "頁碼"
 
 #: ./profiles/default/types/Profile.xml
 msgid "Profile"
@@ -159,75 +156,75 @@ msgstr ""
 
 #: ./interfaces.py:88
 msgid "Solar Calendar: Begin Date"
-msgstr ""
+msgstr "西曆起始時間-日"
 
 #: ./interfaces.py:83
 msgid "Solar Calendar: Begin Month"
-msgstr ""
+msgstr "西曆起始時間-月"
 
 #: ./interfaces.py:93
 msgid "Solar Calendar: Begin Time"
-msgstr ""
+msgstr "西曆起始時間-時-代碼"
 
 #: ./interfaces.py:78
 msgid "Solar Calendar: Begin Year"
-msgstr ""
+msgstr "西曆起始時間-年"
 
 #: ./interfaces.py:108
 msgid "Solar Calendar: End Date"
-msgstr ""
+msgstr "西曆迄止時間-日"
 
 #: ./interfaces.py:103
 msgid "Solar Calendar: End Month"
-msgstr ""
+msgstr "西曆迄止時間-月"
 
 #: ./interfaces.py:113
 msgid "Solar Calendar: End Time"
-msgstr ""
+msgstr "西曆迄止時間-時-代碼"
 
 #: ./interfaces.py:98
 msgid "Solar Calendar: End Year"
-msgstr ""
+msgstr "西曆迄止時間-年"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL Begin Date"
-msgstr ""
+msgstr "西曆起始時間-日"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL Begin Month"
-msgstr ""
+msgstr "西曆起始時間-月"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL Begin Season"
-msgstr ""
+msgstr "西曆起始時間-季節"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL Begin Time"
-msgstr ""
+msgstr "西曆起始時間-時-代碼"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL Begin Year"
-msgstr ""
+msgstr "西曆起始時間-年"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL End Date"
-msgstr ""
+msgstr "西曆迄止時間-日"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL End Month"
-msgstr ""
+msgstr "西曆迄止時間-月"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL End Season"
-msgstr ""
+msgstr "西曆迄止時間-季節"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL End Time"
-msgstr ""
+msgstr "西曆迄止時間-時-代碼"
 
 #: ./models/climate.xml
 msgid "Solar CalendarL End Year"
-msgstr ""
+msgstr "西曆迄止時間-年"
 
 #: ./browser/siteSetting.py:16
 msgid "Support Json format"
@@ -236,13 +233,13 @@ msgstr ""
 #: ./interfaces.py:158
 #: ./models/climate.xml
 msgid "Text Source"
-msgstr ""
+msgstr "文獻名稱"
 
 #: ./interfaces.py:18
 #: ./models/climate.xml
 #: ./models/profile.xml
 msgid "Title"
-msgstr ""
+msgstr "事件-文本內容"
 
 #: ./configure.zcml:31
 msgid "Uninstalls the hcd.content add-on."
@@ -251,12 +248,12 @@ msgstr ""
 #: ./profiles/default/types/Climate.xml
 #: ./profiles/default/types/Profile.xml
 msgid "View"
-msgstr ""
+msgstr "顯示"
 
 #: ./interfaces.py:163
 #: ./models/climate.xml
 msgid "Volume No."
-msgstr ""
+msgstr "冊"
 
 #: ./configure.zcml:22
 msgid "hcd.content"

@@ -53,3 +53,14 @@ def long_lat_indexer(obj):
 def clrsby_indexer(obj):
     if obj.clrsby:
         return int(obj.clrsby)
+
+
+@indexer(IClimate)
+def bsym_indexer(obj):
+    if obj.clrsby and obj.clrsbm:
+        try:
+            if int(obj.clrsbm) < 10:
+                return int('%s0%s' % (obj.clrsby, obj.clrsbm))
+            else:
+                return int('%s%s' % (obj.clrsby, obj.clrsbm))
+        except:pass
