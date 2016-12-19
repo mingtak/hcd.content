@@ -182,9 +182,9 @@ map.on('move', function(e) {
 });
 
 // function(), ajax for getClimate
-function getClimate(e){
-    console.log(e);
+function getClimate(){
     var event = $("input.event:checked");
+    window.group.clearLayers();
     var para = '';
 //    var yearRange = $('#year-selector')[0]['value'];
     var yearRange = $('#year-start')[0]['value'] + ',' +
@@ -208,7 +208,6 @@ function getClimate(e){
         })
     .done(function( data ) {
           var json_points = JSON.parse(data);
-          window.group.clearLayers();
           window.group.addData(json_points);
           map.fitBounds(window.group.getBounds());
           //new L.GeoJSON(points).addTo(map);
