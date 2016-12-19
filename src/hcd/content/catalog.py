@@ -45,7 +45,10 @@ def lasting_indexer(obj):
     if hpngList:
         return ['%s%s' % (i[0:2], i[8]) for i in hpngList] + ['%s%s' % (i[0:4], i[8]) for i in hpngList]
 
-
+@indexer(IClimate)
+def long_lat_indexer(obj):
+    return [obj.lcte,obj.lctn]
+    
 @indexer(IClimate)
 def clrsby_indexer(obj):
     if obj.clrsby:

@@ -43,7 +43,9 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
-        'plone.directives.form'
+        'plone.directives.form',
+        'collective.geo.bundle',
+        'collective.geo.json'
     ],
     extras_require={
         'test': [
@@ -53,7 +55,6 @@ setup(
             # plone_coredev tests as of 2016-04-01.
             'plone.testing>=5.0.0',
             'plone.app.contenttypes',
-            'collective.geo.bundle',
             'plone.app.robotframework[debug]',
         ],
     },

@@ -26,4 +26,9 @@
   </index>
   <column value="clrsby"/>
 
+   <index name="long_lat" meta_type="FieldIndex">
+    <indexed_attr value="long_lat" />
+  </index>
+  <column value="long_lat"/>
+
 </object>

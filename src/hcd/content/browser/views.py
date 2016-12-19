@@ -16,18 +16,24 @@ class GetClimate(BrowserView):
         request = self.request
 
         self.para = request.get('para')
+        self.mapBounds = request.get('mapBounds')
         self.yearRange = request.form.get('yearRange')
         self.yearStart = int(self.yearRange.split(',')[0])
         self.yearEnd = int(self.yearRange.split(',')[1])
         self.yearRange = [self.yearStart, self.yearEnd]
+        
 
         if not self.para or not self.yearRange:
             return '<div>No Result</div>'
 
         self.brain = self.getBrain()
 
+
         if request.form.get('download'):
             return self.downloadFile()
+            
+        if request.form.get('json'):
+            return self.jsonOutput()
             
         return self.template()
 
@@ -55,6 +61,19 @@ class GetClimate(BrowserView):
 
         return catalog(queryDict)
 
+    def jsonOutput(self):
+        self.request.response.setHeader('Content-Type', 'application/json')
+        features = [{
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+          "type": "Point",
+          "coordinates": item.long_lat }} for item in self.getBrain()]
+        points = {
+            "type": "FeatureCollection",
+            "features" : features
+            }
+        return json.dumps(points)
 
     def downloadFile(self):
         self.request.response.setHeader('Content-Type', 'application/csv')
