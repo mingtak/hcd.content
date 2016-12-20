@@ -106,7 +106,6 @@ class GetClimate(BrowserView):
         context = self.context
         request = self.request
 
-#        import pdb; pdb.set_trace()
         if request.form.get('queryString'):
             self.getPara_from_queryString()
         else:
@@ -220,6 +219,21 @@ class GetClimate(BrowserView):
         results = output.getvalue()
         output.close()
         return results
+
+        def in_bounds(bounds,point):
+            top_left = bounds['top_left']
+            bottom_right = bounds['bottom_right']
+            north = top_left['north']
+            west = top_left['west']
+            south = bottom_right['north']
+            east = bottom_right['west']
+            lon,lat = point
+            return np.logical_and(np.logical_and(
+                               lat >= west,   # filter the latitude
+                               lat <= east),  # that are within the boundaries
+                            np.logical_and(
+                               lon <= north,  # filter the longititude
+                               lon >= south)) # that are within the boundaries
 
 
 class ClimateListingView(BrowserView):
