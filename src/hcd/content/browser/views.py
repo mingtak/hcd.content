@@ -5,6 +5,7 @@ from plone import api
 from cStringIO import StringIO
 import csv
 import json
+import numpy as np
 
 
 # bsym: Begin Solar Year Month
@@ -16,7 +17,6 @@ class GetClimate(BrowserView):
     def getPara_from_queryString(self):
         context = self.context
         request = self.request
-#        import pdb;pdb.set_trace()
         tmpDict = json.loads(request.form.get('queryString'))
         self.monthUnknow = tmpDict.get('monthUnknow')
 #        if tmpDict.get('page'):
@@ -37,7 +37,7 @@ class GetClimate(BrowserView):
         self.monthStart = int(self.yearRange.split(',')[1])
         self.yearEnd = int(self.yearRange.split(',')[2])
         self.monthEnd = int(self.yearRange.split(',')[3])
-
+        
         self.yearRange = [self.yearStart, self.yearEnd]
 
         if int(self.monthStart) < 10:
@@ -60,7 +60,6 @@ class GetClimate(BrowserView):
         context = self.context
         request = self.request
 
-#        import pdb; pdb.set_trace()
         self.page = int(request.get('page', 0))
         tmpDict = dict(request.form)
         tmpDict['page'] = self.page
@@ -70,7 +69,6 @@ class GetClimate(BrowserView):
         self.prevDict = dict(tmpDict)
         self.prevDict['page'] -= 1
         self.prevDict = json.dumps(self.prevDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
-#        import pdb; pdb.set_trace()
         self.nextDict = dict(tmpDict)
         self.nextDict['page'] += 1
         self.nextDict = json.dumps(self.nextDict).replace('"', '%22').replace("'", "%27").replace(' ', '%20')
@@ -136,7 +134,6 @@ class GetClimate(BrowserView):
             elif len(para) == 4:
                 ctgr2.append(para)
 
-#        import pdb; pdb.set_trace()
         if self.monthUnknow == 'true':
             queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
         else:
@@ -159,12 +156,15 @@ class GetClimate(BrowserView):
 
     def jsonOutput(self):
         self.request.response.setHeader('Content-Type', 'application/json')
+        bounds = self.request.form.get('bounds')
         features = [{
           "type": "Feature",
           "properties": {},
           "geometry": {
           "type": "Point",
           "coordinates": item.long_lat }} for item in self.getBrain()]
+        if self.request.form.get('bounds'):
+            features = self.filter_by_bounds(bounds,features)  
         points = {
             "type": "FeatureCollection",
             "features" : features
@@ -219,21 +219,36 @@ class GetClimate(BrowserView):
         results = output.getvalue()
         output.close()
         return results
+        
+    def filter_by_bounds(self,bounds,points):
+        bound = json.loads(bounds)
+        return [point for point in points
+                                     if self.in_bounds(bound, point)]
+        
+    def in_bounds(self,bounds,point):
+        """ filters a leaflet point on a leaflet bounds
+          e.g.
+          bounds = {
+            "_southWest":{"lat":29.649868677972304,"lng":100.81054687500001},
+            "_northEast":{"lat":42.06560675405716,"lng":129.46289062500003}
+          }
+          point = {'geometry': {'type': 'Point', 
+                                  'coordinates': [115.964062, 39.865015]},
+                                  'type': 'Feature', 'properties': {}}
 
-        def in_bounds(bounds,point):
-            top_left = bounds['top_left']
-            bottom_right = bounds['bottom_right']
-            north = top_left['north']
-            west = top_left['west']
-            south = bottom_right['north']
-            east = bottom_right['west']
-            lon,lat = point
-            return np.logical_and(np.logical_and(
-                               lat >= west,   # filter the latitude
-                               lat <= east),  # that are within the boundaries
-                            np.logical_and(
-                               lon <= north,  # filter the longititude
-                               lon >= south)) # that are within the boundaries
+          self.in_bounds(bounds,point)
+        """
+        north = bounds['_northEast']['lat']
+        south = bounds['_southWest']['lat']
+        east = bounds['_northEast']['lng']
+        west = bounds['_southWest']['lng']
+        lon,lat = point['geometry']['coordinates']
+        return np.logical_and(np.logical_and(
+                           lon >= west,   # filter the longitude
+                           lon <= east),  # that are within the boundaries
+                        np.logical_and(
+                           lat <= north,  # filter the latitude
+                           lat >= south)) # that are within the boundaries
 
 
 class ClimateListingView(BrowserView):

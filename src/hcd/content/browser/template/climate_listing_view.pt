@@ -170,16 +170,39 @@ $(".event").click(function() {
 
 // Leaflet map
 var map = L.map('mapmap', {
-    center: [17.95, -76.75],
-    zoom: 12
+    center: [39.012, 117.391],
+    zoom: 6
 });
  window.group = new L.GeoJSON()
  window.group.addTo(map);
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
-map.on('move', function(e) {
+/*map.on('move', function(e) {
   document.getElementById('pop_pop').innerHTML = "Bounds: " + (JSON.stringify(map.getBounds()))
+  localStorage.bounds=JSON.stringify(map.getBounds());
   return console.log(map.getBounds());
-});
+});*/
+map.on('moveend', getClimate);
+
+function getPoints(){
+        if (map.getZoom() < 14) {
+            console.log('zoom in more');
+            window.group.clearLayers();
+        } else {
+            window.group.clearLayers();
+            $.ajax("./@@get_climate?json=1&bounds=" + JSON.stringify(map.getBounds()) + para,
+            {beforeSend: function( xhr ) {
+                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+                }
+            })
+            .done(function( data ) {
+                var json_points = JSON.parse(data);
+                window.group.addData(json_points);
+            });
+            
+        }
+    };
+    
+    
 
 // function(), ajax for getClimate
 function getClimate(){
@@ -198,6 +221,7 @@ function getClimate(){
     };
     para += 'yearRange=' + yearRange;
     para += '&monthUnknow=' + monthUnknow;
+    para += '&bounds=' + localStorage.bounds
 //    console.log(para);
 //    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para);
@@ -209,8 +233,8 @@ function getClimate(){
     .done(function( data ) {
           var json_points = JSON.parse(data);
           window.group.addData(json_points);
-          map.fitBounds(window.group.getBounds());
-          //new L.GeoJSON(points).addTo(map);
+          //map.fitBounds(window.group.getBounds());
+          new L.GeoJSON(points).addTo(map);
     });
 
 };

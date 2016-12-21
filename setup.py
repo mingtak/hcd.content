@@ -45,7 +45,8 @@ setup(
         'plone.app.dexterity',
         'plone.directives.form',
         'collective.geo.bundle',
-        'collective.geo.json'
+        'collective.geo.json',
+        'numpy'
     ],
     extras_require={
         'test': [
