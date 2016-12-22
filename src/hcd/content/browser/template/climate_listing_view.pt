@@ -173,9 +173,10 @@ var map = L.map('mapmap', {
     center: [39.012, 117.391],
     zoom: 6
 });
- window.group = new L.GeoJSON()
- window.group.addTo(map);
-  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+window.group = new L.GeoJSON()
+window.group.addTo(map);
+ 
 /*map.on('move', function(e) {
   document.getElementById('pop_pop').innerHTML = "Bounds: " + (JSON.stringify(map.getBounds()))
   localStorage.bounds=JSON.stringify(map.getBounds());
@@ -183,31 +184,14 @@ var map = L.map('mapmap', {
 });*/
 map.on('moveend', getClimate);
 
-function getPoints(){
-        if (map.getZoom() < 14) {
-            console.log('zoom in more');
-            window.group.clearLayers();
-        } else {
-            window.group.clearLayers();
-            $.ajax("./@@get_climate?json=1&bounds=" + JSON.stringify(map.getBounds()) + para,
-            {beforeSend: function( xhr ) {
-                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-                }
-            })
-            .done(function( data ) {
-                var json_points = JSON.parse(data);
-                window.group.addData(json_points);
-            });
-            
-        }
-    };
-    
-    
-
 // function(), ajax for getClimate
 function getClimate(){
-    var event = $("input.event:checked");
     window.group.clearLayers();
+    localStorage.bounds=JSON.stringify(map.getBounds());
+    var event = $("input.event:checked");
+    
+
+    
     var para = '';
 //    var yearRange = $('#year-selector')[0]['value'];
     var yearRange = $('#year-start')[0]['value'] + ',' +
@@ -225,16 +209,20 @@ function getClimate(){
 //    console.log(para);
 //    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para);
+    // request map json
     $.ajax("./@@get_climate?json=1&" + para,
      {beforeSend: function( xhr ) {
     xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
           }
         })
     .done(function( data ) {
+          console.log(data);
           var json_points = JSON.parse(data);
+          if (data == '{}') {return}
           window.group.addData(json_points);
+          //localStorage.bounds = JSON.stringify(window.group.getBounds());
           //map.fitBounds(window.group.getBounds());
-          new L.GeoJSON(points).addTo(map);
+          //new L.GeoJSON(json_points).addTo(map);
     });
 
 };

@@ -110,7 +110,7 @@ class GetClimate(BrowserView):
             self.getPara_from_Form()
 
         if not self.para or not self.bsym:
-            return '<div>No Result</div>'
+            return '{}'
 
         self.brain = self.getBrain()
 
