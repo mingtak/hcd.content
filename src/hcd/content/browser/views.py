@@ -159,7 +159,10 @@ class GetClimate(BrowserView):
         bounds = self.request.form.get('bounds')
         features = [{
           "type": "Feature",
-          "properties": {},
+          "properties": {
+                         "title":item.Title,
+                         "url":item.getURL()
+                        },
           "geometry": {
           "type": "Point",
           "coordinates": item.long_lat }} for item in self.getBrain()]
