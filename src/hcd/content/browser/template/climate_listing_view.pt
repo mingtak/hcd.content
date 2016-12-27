@@ -106,9 +106,13 @@ portal = api.portal.get()
 </tal:group>
 
 </div>
-
+<!-- Leaflet Map -->
 <div class="col-sm-7">
-    <div class="result">Result</div>
+  <div id="mapmap" style="height: 350px; width: 100%; background-color: blue"></div>
+</div>
+<!-- Leaflet Map End -->
+<div class="col-sm-7">
+    <div id="pop_pop" class="result">Result</div>
 </div>
 
 </div>
@@ -129,7 +133,7 @@ $("#click_all").click(function() {
    }
 });
 
-// select group_* and cancle
+// select group_* and cancel
 $(".click_group").click(function() {
    var tag_id = this.id;
    if($("#" + tag_id).prop("checked")) {
@@ -151,7 +155,7 @@ $(".click_events").click(function() {
    }
 });
 
-// Cancle selected
+// Cancel selected
 $(".event").click(function() {
    var tag = this;
    var tag_id = tag.id;
@@ -164,10 +168,25 @@ $(".event").click(function() {
    }
 });
 
+// Leaflet map
+var map = L.map('mapmap', {
+    center: [39.012, 117.391],
+    zoom: 6
+});
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+window.group = new L.GeoJSON()
+window.group.addTo(map);
+ 
+map.on('moveend', getClimate);
 
 // function(), ajax for getClimate
-var getClimate = function(){
+function getClimate(){
+    window.group.clearLayers();
+    localStorage.bounds=JSON.stringify(map.getBounds());
     var event = $("input.event:checked");
+    
+
+    
     var para = '';
 //    var yearRange = $('#year-selector')[0]['value'];
     var yearRange = $('#year-start')[0]['value'] + ',' +
@@ -181,9 +200,42 @@ var getClimate = function(){
     };
     para += 'yearRange=' + yearRange;
     para += '&monthUnknow=' + monthUnknow;
+    para += '&bounds=' + localStorage.bounds
 //    console.log(para);
 //    console.log($('#year-selector')[0]['value']);
-    $("div.result").load("./@@get_climate?" + para);
+    $("div.result").load("./@@get_climate?" + para,
+    function(){
+    $.ajax("./@@get_climate?json=1&" + para,
+     {beforeSend: function( xhr ) {
+    xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+          }
+        })
+    .done(function( data ) {
+          if (data == '{}') {return}
+          // empty the result list
+          var point_list = $("#pop_pop ul");
+          point_list.empty();
+          var json_points = JSON.parse(data);
+          window.group.addData(json_points);
+          // return
+          // create a list and then append each point item
+          // var point_list = $(document.createElement("ul"));
+          var nav = $(document.createElement("b"));
+          $.each(json_points.features, function( key, point) {
+                  var point_item = $(document.createElement("li"));
+                  var point_link = $(document.createElement("a"));
+                  var point_link_text = $(document.createTextNode(point.properties.title));
+                  point_link.attr('href', point.properties.url);
+                  point_link.append(point_link_text);
+                  point_item.append(point_link);
+                  point_list.append(point_item);
+                  //point_holder.append(point_list);
+                  point_list.after(nav)
+                });
+
+      });
+    });
+
 };
 
 // when checkbox checked.
@@ -215,6 +267,7 @@ $('#year-selector').jRange({
     },
 });
 */
+
 
 </script>
 
