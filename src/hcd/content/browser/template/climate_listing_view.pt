@@ -213,8 +213,6 @@ function getClimate(){
     para += 'yearRange=' + yearRange;
     para += '&monthUnknow=' + monthUnknow;
     para += '&bounds=' + localStorage.bounds
-//    console.log(para);
-//    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para,
     function(){
     $.ajax("./@@get_climate?json=1&" + para,
@@ -241,10 +239,8 @@ function getClimate(){
                   point_link.append(point_link_text);
                   point_item.append(point_link);
                   point_list.append(point_item);
-                  //point_holder.append(point_list);
                   point_list.after(nav)
                 });
-        //console.log(point_list.children('li').slice(0,2));
         var point_list_items = point_list.children('li');
         var page_count = page_info['page_count'];
         $('#pop_pop ul.pagination-area').twbsPagination({
@@ -258,7 +254,6 @@ function getClimate(){
              if (page == page_count){
                  end_ = start_ + page_info['remaining_items']
                  }
-             console.log(start_,end_);
              $('#pop_pop ul.hcd-listings')
                 .empty()
                 .append( point_list_items.slice(start_,end_));
