@@ -29,18 +29,22 @@ prev_id = str(random.randint(1000000, 2000000))
 
 
 <metal:results tal:define="brain view/brain; start python:view.page*20">
-<ul>    
+<ul class="hcd-listings">    
     <li tal:repeat="item python:brain[start: start+20]">
         <a tal:attributes="href item/getURL" tal:content="item/Title" target="_blank"/>
     </li>
  </ul>
 <br>
+<ul class="pagination-area pagination-sm"></ul>
+<tal:comment tal:condition="nothing">
+<!-- old pagination code -->
 <a id="${next_id}" class="context pull-right" href="javascript:void(0)" tal:condition="python:(len(brain)/20) - view.page">下一頁</a>
 <a id="${prev_id}" class="context pull-left" href="javascript:void(0)" tal:condition="view/page">上一頁</a>
 
 <p style="margin:6px 150px 0px">
   第 <span tal:replace="python:view.page+1"/> 頁 / 共 <span tal:replace="python:len(brain)/20 + 1"/> 頁
 </p>
+</tal:comment>
 
 </metal:results>
 

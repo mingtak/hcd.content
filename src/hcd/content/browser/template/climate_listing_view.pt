@@ -8,6 +8,7 @@
 <body>
 <metal:styleslot fill-slot="style_slot">
    <link rel="stylesheet" tal:attributes="href string:++resource++hcd.content/leaflet/leaflet.css" />
+      <link rel="stylesheet" tal:attributes="href string:++resource++hcd.content/twbs-pagination/twbs-pagination-custom.css" />
 </metal:styleslot>
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core"
@@ -179,6 +180,17 @@ window.group.addTo(map);
  
 map.on('moveend', getClimate);
 
+function pageCount(items,per_page){
+   var page_count = parseInt(items / per_page);
+   var remaining_items = items % per_page
+   if (remaining_items) {
+       page_count = page_count + 1;
+   }
+     return {
+              page_count:page_count,
+              remaining_items: remaining_items
+     }
+}
 // function(), ajax for getClimate
 function getClimate(){
     window.group.clearLayers();
@@ -201,8 +213,6 @@ function getClimate(){
     para += 'yearRange=' + yearRange;
     para += '&monthUnknow=' + monthUnknow;
     para += '&bounds=' + localStorage.bounds
-//    console.log(para);
-//    console.log($('#year-selector')[0]['value']);
     $("div.result").load("./@@get_climate?" + para,
     function(){
     $.ajax("./@@get_climate?json=1&" + para,
@@ -217,10 +227,10 @@ function getClimate(){
           point_list.empty();
           var json_points = JSON.parse(data);
           window.group.addData(json_points);
-          // return
-          // create a list and then append each point item
-          // var point_list = $(document.createElement("ul"));
           var nav = $(document.createElement("b"));
+          var feature_count = json_points.features.length;
+          var items_per_page = 20;
+          var page_info = pageCount(feature_count,items_per_page);
           $.each(json_points.features, function( key, point) {
                   var point_item = $(document.createElement("li"));
                   var point_link = $(document.createElement("a"));
@@ -229,9 +239,26 @@ function getClimate(){
                   point_link.append(point_link_text);
                   point_item.append(point_link);
                   point_list.append(point_item);
-                  //point_holder.append(point_list);
                   point_list.after(nav)
                 });
+        var point_list_items = point_list.children('li');
+        var page_count = page_info['page_count'];
+        $('#pop_pop ul.pagination-area').twbsPagination({
+        totalPages: page_info['page_count'],
+        visiblePages: 7,
+        onPageClick: function (event, page) {
+             var end_ = page * items_per_page;
+             var start_ = end_ - items_per_page;
+             // if this is the last page then
+             // use 'remaining_items' to determine the end
+             if (page == page_count){
+                 end_ = start_ + page_info['remaining_items']
+                 }
+             $('#pop_pop ul.hcd-listings')
+                .empty()
+                .append( point_list_items.slice(start_,end_));
+        }
+    });
 
       });
     });
@@ -247,6 +274,7 @@ $(':checkbox').change(function() {
 $('.year-selector').change(function() {
     getClimate();
 });
+
 
 // Range bar using jquery.range.js
 /* 換掉不用了
@@ -270,7 +298,7 @@ $('#year-selector').jRange({
 
 
 </script>
-
+<script tal:attributes="src string:++resource++hcd.content/twbs-pagination/jquery.twbsPagination.min.js"></script>
 </metal:content-core>
 </metal:content-core>
 
