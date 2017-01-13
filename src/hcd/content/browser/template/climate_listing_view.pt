@@ -120,6 +120,8 @@ portal = api.portal.get()
 </section>
 
 <script tal:attributes="src string:++resource++hcd.content/leaflet/leaflet.js"></script>
+
+
 <script tal:attributes="src string:++resource++hcd.content/jquery.range.js"></script>
 <script>
 
@@ -170,11 +172,20 @@ $(".event").click(function() {
 });
 
 // Leaflet map
+var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+var wmts = L.tileLayer('http://gis.sinica.edu.tw/ccts/file-exists.php?img=China_Map_1903-png-{z}-{x}-{y}');
+var baseMaps = {"Open Street Map" : osm, "China Map 1903": wmts};
 var map = L.map('mapmap', {
     center: [39.012, 117.391],
-    zoom: 6
+    zoom: 6,
+    layers: [wmts]
 });
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
+
+
+L.control.layers(baseMaps).addTo(map);
+
+
+
 window.group = new L.GeoJSON()
 window.group.addTo(map);
  
@@ -274,6 +285,7 @@ $(':checkbox').change(function() {
 $('.year-selector').change(function() {
     getClimate();
 });
+
 
 
 // Range bar using jquery.range.js
