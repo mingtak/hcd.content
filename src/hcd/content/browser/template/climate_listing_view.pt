@@ -178,7 +178,7 @@ var baseMaps = {"Open Street Map" : osm, "China Map 1903": wmts};
 var map = L.map('mapmap', {
     center: [39.012, 117.391],
     zoom: 6,
-    layers: [wmts]
+    layers: [osm]
 });
 
 
