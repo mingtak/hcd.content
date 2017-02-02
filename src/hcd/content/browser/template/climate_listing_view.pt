@@ -51,6 +51,11 @@ portal = api.portal.get()
 <input type="checkbox" id="monthUnknow" name="monthUnknow" checked />僅依年代範圍搜尋(含月份不明)<br>
   </p>
 
+<h4 style="float:left" i18n:translate="">Keyword Search:</h4>
+<input type="text" id="s-keyword" class="s-keyword" style="max-width:50%"/>
+
+<br>
+
 <h4>事件分類</h4>
   <p class="col-sm-12"> 
     <input type="checkbox" name="click_all" id="click_all" value="all" />
@@ -217,13 +222,16 @@ function getClimate(){
                     $('#year-end')[0]['value'] + ',' +
                     $('#month-end')[0]['value'];
     var monthUnknow = $('#monthUnknow')[0]['checked'];
+    var sKeyword = $('#s-keyword')[0]['value'];
 
     for(var i=0; i<event.length; i++) {
         para += "para:list=" + event[i].value + "&";
     };
     para += 'yearRange=' + yearRange;
     para += '&monthUnknow=' + monthUnknow;
-    para += '&bounds=' + localStorage.bounds
+    para += '&bounds=' + localStorage.bounds;
+    para += '&sKeyword=' + sKeyword;
+
     $("div.result").load("./@@get_climate?" + para,
     function(){
     $.ajax("./@@get_climate?json=1&" + para,
@@ -281,12 +289,15 @@ $(':checkbox').change(function() {
     getClimate();
 });
 
-// when year-selector checked.
+// when year-selector change value.
 $('.year-selector').change(function() {
     getClimate();
 });
 
-
+// when s-keyword change value.
+$('.s-keyword').change(function() {
+    getClimate();
+});
 
 // Range bar using jquery.range.js
 /* 換掉不用了

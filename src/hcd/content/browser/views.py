@@ -128,6 +128,8 @@ class GetClimate(BrowserView):
         catalog = self.context.portal_catalog
         ctgr1 = []
         ctgr2 = []
+        sKeyword = self.request.form.get('sKeyword')
+
         for para in self.para:
             if len(para) == 2:
                 ctgr1.append(para)
@@ -138,6 +140,9 @@ class GetClimate(BrowserView):
             queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
         else:
             queryDict = {'Type':'Climate', 'bsym':{'query':self.bsym, 'range':'min:max'}}
+
+        if sKeyword:
+            queryDict['SearchableText'] = sKeyword
 #        queryDict = {'Type':'Climate', 'clrsby':{'query':self.yearRange, 'range':'min:max'}}
 
 # 改採只聯集不交集
