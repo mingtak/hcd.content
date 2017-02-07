@@ -22,7 +22,7 @@ portal = api.portal.get()
 
 <tal:h1 switch="python:view.request.form.get('custom')">
     <h1 tal:case="python:'y'">目前使用自定義分類</h1>
-    <h1 tal:case="default">目前使用預設分類</h1>
+    <p tal:case="default">目前使用預設分類</p>
 </tal:h1>
 
 <section tal:define="ctgr python:view.ctgr">
