@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: hcd.content\n"
-"POT-Creation-Date: 2016-12-16 07:05+0000\n"
+"POT-Creation-Date: 2017-02-09 05:30+0000\n"
 "PO-Revision-Date: 2016-12-16 15:10+0800\n"
 "Last-Translator: TsungWei Hu <marr.tw@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,6 +48,10 @@ msgstr "資料編號"
 #: ./configure.zcml:22
 msgid "Installs the hcd.content add-on."
 msgstr ""
+
+#: ./browser/template/climate_listing_view.pt:106
+msgid "Keyword Search:"
+msgstr "關鍵詞搜尋: "
 
 #: ./interfaces.py:143
 #: ./models/climate.xml
@@ -145,6 +149,10 @@ msgstr "頁碼"
 #: ./profiles/default/types/Profile.xml
 msgid "Profile"
 msgstr ""
+
+#: ./browser/template/climate_listing_view.pt:127
+msgid "Result"
+msgstr "搜尋結果"
 
 #: ./browser/siteSetting.py:27
 msgid "Site Setting"

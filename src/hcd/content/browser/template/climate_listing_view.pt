@@ -86,7 +86,7 @@ portal = api.portal.get()
                                    group python:group.split('|')[0].split(':')[0].strip()"
                        tal:attributes="value value;
                                        class python:'event %s event_%s' % (group, event.strip().split(':')[0])"/>
-                <span tal:content="python:item.strip().split(':')[1]" />
+                <span style="font-size:10px" tal:content="python:item.strip().split(':')[1]" />
             </tal:item>
         </td>
 
@@ -106,25 +106,25 @@ portal = api.portal.get()
 <h4 style="float:left" i18n:translate="">Keyword Search:</h4>
 <input type="text" id="s-keyword" class="s-keyword" style="max-width:50%"/>
 <br>
-</p>
+<!-- /p -->
 
-<h4>年代選擇</h4>
+<h4>時間範圍篩選</h4>
   <p class="col-sm-12" style="margin:5px 0 50px 0">
     西元年 / 月 (min:1450年1月 ~ max:1950年12月)<br><br>
     起: <input type="number" min="1450" max="1950" step="10" id="year-start" class="year-selector" value="1450" style="max-width:25%"/>年
         <input type="number" min="1" max="12" id="month-start" class="year-selector" value="1" style="max-width:25%"/>月<br><br>
     迄: <input type="number" min="1450" max="1950" step="10" id="year-end" class="year-selector" value="1950" style="max-width:25%"/>年
         <input type="number" min="1" max="12" id="month-end" class="year-selector" value="12" style="max-width:25%"/>月<br>
-<input type="checkbox" id="monthUnknow" name="monthUnknow" checked />僅依年代範圍搜尋(含月份不明)
+<input type="checkbox" id="monthUnknow" name="monthUnknow" checked />僅依年份範圍搜尋(含月份不明)
   </p>
 
 
-
+<h4>空間範圍篩選</h4>
   <div id="mapmap" style="height: 350px; width: 100%; background-color: blue"></div>
 </div>
 <!-- Leaflet Map End -->
 <div class="col-sm-7">
-    <div id="pop_pop" class="result">Result</div>
+    <div id="pop_pop" class="result" i18n:translate="">Result</div>
 </div>
 
 </div>

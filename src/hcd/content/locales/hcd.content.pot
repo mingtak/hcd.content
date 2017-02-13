@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-16 07:05+0000\n"
+"POT-Creation-Date: 2017-02-09 05:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,6 +50,10 @@ msgstr ""
 
 #: ./configure.zcml:22
 msgid "Installs the hcd.content add-on."
+msgstr ""
+
+#: ./browser/template/climate_listing_view.pt:106
+msgid "Keyword Search:"
 msgstr ""
 
 #: ./interfaces.py:143
@@ -147,6 +151,10 @@ msgstr ""
 
 #: ./profiles/default/types/Profile.xml
 msgid "Profile"
+msgstr ""
+
+#: ./browser/template/climate_listing_view.pt:127
+msgid "Result"
 msgstr ""
 
 #: ./browser/siteSetting.py:27
