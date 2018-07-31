@@ -19,7 +19,6 @@ from plone import api
 portal = api.portal.get()
 ?>
 
-
 <tal:h1 switch="python:view.request.form.get('custom')">
     <h1 tal:case="python:'y'">目前使用自定義分類</h1>
     <p tal:case="default">目前使用預設分類</p>
@@ -38,13 +37,12 @@ portal = api.portal.get()
 </div>
 <hr>
 
-
 <div class="row">
 <div class="col-sm-5">
 
 <h4>事件分類</h4>
   <p class="col-sm-12"> 
-    <input type="checkbox" name="click_all" id="click_all" value="all" />
+    <input type="checkbox" name="click_all" id="click_all" value="all" checked />
     <span>全選/全不選</span>
   </p>
 
@@ -54,7 +52,7 @@ portal = api.portal.get()
   <p tal:repeat="group sortedCtgr" class="col-sm-6 col-xs-4">
     <input tal:define="code python:group.strip().split(':')[0]"
            tal:attributes="name code;id code; value code"
-           type="checkbox" class='click_group'/>
+           type="checkbox" class='click_group'  checked />
     <span tal:content="python:group.strip().split(':')[1]">氣象</span>
   </p>
 
@@ -67,7 +65,7 @@ portal = api.portal.get()
         tal:repeat="event sortedEvent">
 <!-- 主分類 -->
         <td style="width:25%">
-          <input type="checkbox" name="event"
+          <input type="checkbox" name="event" checked
                  tal:define="value python:event.strip().split(':')[0];
                              group python:group.split('|')[0].split(':')[0].strip()"
                  tal:attributes="id python:'event_%s' % value;
@@ -81,7 +79,7 @@ portal = api.portal.get()
             <tal:item define="sortedItem python:ctgr[group][event].keys();
                               tmp python:sortedItem.sort()"
                       repeat="item sortedItem">
-                <input type="checkbox" name="item"
+                <input type="checkbox" name="item" checked
                        tal:define="value python:item.strip().split(':')[0];
                                    group python:group.split('|')[0].split(':')[0].strip()"
                        tal:attributes="value value;
@@ -118,7 +116,6 @@ portal = api.portal.get()
 <input type="checkbox" id="monthUnknow" name="monthUnknow" checked />僅依年份範圍搜尋(含月份不明)
   </p>
 
-
 <h4>空間範圍篩選</h4>
   <div id="mapmap" style="height: 350px; width: 100%; background-color: blue"></div>
 </div>
@@ -131,8 +128,6 @@ portal = api.portal.get()
 </section>
 
 <script tal:attributes="src string:++resource++hcd.content/leaflet/leaflet.js"></script>
-
-
 <script tal:attributes="src string:++resource++hcd.content/jquery.range.js"></script>
 <script>
 
@@ -184,18 +179,16 @@ $(".event").click(function() {
 
 // Leaflet map
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-var wmts = L.tileLayer('http://gis.sinica.edu.tw/ccts/file-exists.php?img=China_Map_1903-png-{z}-{x}-{y}');
-var baseMaps = {"Open Street Map" : osm, "China Map 1903": wmts};
+var china1903 = L.tileLayer('http://gis.sinica.edu.tw/ccts/file-exists.php?img=China_Map_1903-png-{z}-{x}-{y}');
+var qing1820 = L.tileLayer('http://gis.sinica.edu.tw/ccts/file-exists.php?img=ad1820-png-{z}-{x}-{y}');
+var baseMaps = {"Open Street Map" : osm, "中國地圖(1903)": china1903, "清代地圖(1820)": qing1820};
 var map = L.map('mapmap', {
-    center: [39.012, 117.391],
-    zoom: 6,
+    center: [36.712, 114.391],
+    zoom: 5,
     layers: [osm]
 });
 
-
 L.control.layers(baseMaps).addTo(map);
-
-
 
 window.group = new L.GeoJSON()
 window.group.addTo(map);
@@ -325,12 +318,18 @@ $('#year-selector').jRange({
 });
 */
 
-
 </script>
+
+<!-- initial -->
+<script>
+$( document ).ready(function() {
+    getClimate();
+});
+</script>
+
 <script tal:attributes="src string:++resource++hcd.content/twbs-pagination/jquery.twbsPagination.min.js"></script>
 </metal:content-core>
 </metal:content-core>
 
 </body>
 </html>
-
